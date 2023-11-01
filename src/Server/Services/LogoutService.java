@@ -32,4 +32,21 @@ public class LogoutService {
         }
         return new MessageResult("an error has occurred");
     }
+
+    public MessageResult logout(String myToken) throws DataAccessException {
+        AuthDAO tokenAccess = new AuthDAO(Server.MEMORY_DATA_ACCESS);
+        AuthToken token = new AuthToken();
+        System.out.println("token: " + myToken);
+        try{
+            token = tokenAccess.findAuth(myToken);
+        }
+        catch(DataAccessException e) {
+            throw new DataAccessException("unauthorized");
+        }
+        if(token != null){
+            tokenAccess.deleteAuth(token);
+            return new MessageResult();
+        }
+        return new MessageResult("an error has occurred");
+    }
 }

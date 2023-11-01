@@ -22,30 +22,39 @@ public class LogoutHandler implements Route {
         try {
             //create new request
             Gson gson = new Gson();
-            AuthTokenOnlyRequest request = gson.fromJson(req.body(), AuthTokenOnlyRequest.class);
+            System.out.println("cp 1");
+            //System.out.println("auth: " + req.headers("authorization"));
+            //AuthTokenOnlyRequest request = gson.fromJson(req.headers("authorization"), AuthTokenOnlyRequest.class);
+            //TODO: format request based on headers of req
+
 
             //pass request to LogoutService and get result
             LogoutService service = new LogoutService();
-            MessageResult result = service.logout(request);
+            System.out.println("auth: " + req.headers("authorization"));
+            if(req.headers("authorization") != null) {
+                MessageResult result = service.logout(req.headers("authorization"));
 
-            //valid AuthToken
-            if(result.getMessage() == null) {
-                res.status(HttpURLConnection.HTTP_OK);
-                return res;
+                //valid AuthToken
+                if (result.getMessage() == null) {
+                    res.status(HttpURLConnection.HTTP_OK);
+                    return "{}";
+                }
+                //something went wrong
+                else {
+                    res.status(HttpURLConnection.HTTP_INTERNAL_ERROR);
+                    return "{ \"message\": \"Error: internal error\" }";
+                }
             }
-            //something went wrong
             else {
-                res.status(HttpURLConnection.HTTP_INTERNAL_ERROR);
-                return "{ \"message\": \"Error: " + result.getMessage() + "\" }";
+                res.status(HttpURLConnection.HTTP_UNAUTHORIZED);
+                return "{ \"message\": \"Error: unauthorized\" }";
             }
-        }
-        //Invalid token
-        catch (DataAccessException e){
-            res.status(HttpURLConnection.HTTP_UNAUTHORIZED);
-            e.printStackTrace();
+        }//Invalid token
+        catch(DataAccessException e){
+                res.status(HttpURLConnection.HTTP_UNAUTHORIZED);
+                e.printStackTrace();
 
-            return "{ \"message\": \"Error: " + e.getMessage() + "\" }";
+                return "{ \"message\": \"Error: " + e.getMessage() + "\" }";
         }
     }
-
 }

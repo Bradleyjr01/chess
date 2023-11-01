@@ -23,7 +23,7 @@ public class RegisterHandler implements Route {
 
         //successfully registered
         if(result.getAuthToken() != null && result.getUsername() != null) {
-            String respData = "{ \"username\":\" " + result.getUsername()
+            String respData = "{ \"username\":\"" + result.getUsername()
                     + "\", \"authToken\":\"" + result.getAuthToken() + "\" }";
 
             res.status(HttpURLConnection.HTTP_OK);

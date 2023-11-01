@@ -16,7 +16,12 @@ public class CreateGameHandler implements Route {
             try {
                 //create new request
                 Gson gson = new Gson();
-                CreateGameRequest request = gson.fromJson(req.body(), CreateGameRequest.class);
+
+                ///TODO get header and body to fill request object
+                String fullRequest = req.headers("authorization") + req.body();
+                CreateGameRequest request = gson.fromJson(fullRequest, CreateGameRequest.class);
+                //request.setAuthToken(req.headers("authorization"));
+                //request.setGameName(req.body());
 
                 //pass request to CreateGameService and get result
                 CreateGameService service = new CreateGameService();

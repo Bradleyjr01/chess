@@ -2,7 +2,7 @@ package Server.DataAccessing;
 
 public class BaseDAO {
 
-    private DataAccess myDatabase;
+    private DataAccess myDatabase = new MemoryDataAccess();
 
     public BaseDAO() {}
     public BaseDAO(DataAccess database) {

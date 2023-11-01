@@ -24,24 +24,23 @@ public class LoginHandler implements Route{
 
             //correct password for user
             if(result.getAuthToken() != null && result.getUsername() != null) {
-                String respData = "{ \"username\":\" " + result.getUsername()
+                String respData = "{ \"username\":\"" + result.getUsername()
                         + "\", \"authToken\":\"" + result.getAuthToken() + "\" }";
 
                 res.status(HttpURLConnection.HTTP_OK);
                 return respData;
             }
-            //wrong password
+            //something weird happened
             else {
-                res.status(HttpURLConnection.HTTP_UNAUTHORIZED);
-                return "{ \"message\": \"Error: " + result.getMessage() + "\" }";
+                res.status(HttpURLConnection.HTTP_INTERNAL_ERROR);
+                return "{ \"message\": \"Error: Internal Error\" }";
+
             }
         }
-        //Invalid username
+        //Invalid username or password
         catch (DataAccessException e){
-            res.status(HttpURLConnection.HTTP_INTERNAL_ERROR);
-            e.printStackTrace();
-
-            return "{ \"message\": \"Error: " + e.getMessage() + "\" }";
+            res.status(HttpURLConnection.HTTP_UNAUTHORIZED);
+            return "{ \"message\": \"Error: unauthorized\" }";
         }
     }
 
