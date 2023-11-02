@@ -1,0 +1,7 @@
+Questions:
+
+TODO:
+2. Do I have persistence in my data storage? --> no. find out where the leak is.
+1. Is "'" allowed in json? If not, how do I replace/signify it?
+   a. replace on end of games method to replace all the weird characters
+3. Does clear need a valid authToken to run? --> need to make sure clear goes through all the way

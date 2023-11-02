@@ -1,10 +1,8 @@
 package Server.Services;
 
 import Server.Requests.CreateGameRequest;
-import Server.Requests.CreateGameRequest;
 import Server.Results.CreateGameResult;
 import Server.DataAccessing.*;
-import Server.Results.CreateGameResult;
 import Server.Server;
 
 public class CreateGameService {
@@ -19,12 +17,12 @@ public class CreateGameService {
     public CreateGameResult CreateGame(CreateGameRequest request) throws DataAccessException {
 
         //if no gameID given
-        if(request.getGameName() == null) return new CreateGameResult(null, "bad request");
+        if(request.getGameName() == null) return new CreateGameResult(-1, "bad request");
 
         //verify AuthToken
         AuthDAO tokenAccess = new AuthDAO(Server.MEMORY_DATA_ACCESS);
         try{
-            tokenAccess.findAuth(request.getAuthToken());
+            tokenAccess.findAuth(request.getAuthorization());
         }
         catch (DataAccessException e) {
             throw new DataAccessException("unauthorized");

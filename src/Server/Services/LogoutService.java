@@ -2,8 +2,6 @@ package Server.Services;
 
 import Server.DataAccessing.*;
 import Server.Requests.AuthTokenOnlyRequest;
-import Server.Requests.LoginRequest;
-import Server.Results.MessageResult;
 import Server.Results.MessageResult;
 import Server.Server;
 
@@ -21,7 +19,7 @@ public class LogoutService {
         AuthDAO tokenAccess = new AuthDAO(Server.MEMORY_DATA_ACCESS);
         AuthToken token = new AuthToken();
         try{
-            token = tokenAccess.findAuth(request.getAuthToken());
+            token = tokenAccess.findAuth(request.getAuthorization());
         }
         catch(DataAccessException e) {
             throw new DataAccessException("unauthorized");

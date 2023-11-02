@@ -35,7 +35,7 @@ public class AuthDAO extends BaseDAO {
      */
     public AuthToken findAuth(String stringToken) throws DataAccessException {
         AuthToken token = myDatabase.readAuthToken(stringToken);
-        if(token != null) System.out.println("AuthDAO: " + token.getAuthToken());
+        //if(token != null) System.out.println("AuthDAO: " + token.getAuthToken());
         if(myDatabase.readAuthToken(token) != null) return myDatabase.readAuthToken(stringToken);
         throw(new DataAccessException("Token not valid"));
     }

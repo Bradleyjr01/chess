@@ -1,13 +1,13 @@
 package Server.Requests;
 
 public class AuthTokenOnlyRequest {
-    private String authToken;
+    private String authorization;
 
     public AuthTokenOnlyRequest() {}
-    public String getAuthToken() {
-        return authToken;
+    public String getAuthorization() {
+        return authorization;
     }
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
+    public void setAuthorization(String authorization) {
+        this.authorization = authorization;
     }
 }

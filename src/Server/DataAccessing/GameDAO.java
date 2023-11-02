@@ -11,6 +11,8 @@ public class GameDAO extends BaseDAO {
 
     private DataAccess myDatabase;
 
+    private static int gameNumInc = 0;
+
     public GameDAO(DataAccess database) {
         myDatabase = database;
     }
@@ -38,7 +40,7 @@ public class GameDAO extends BaseDAO {
      * @param gameID - the id of the game to find
      * @return the game if found else throws DataAccessException
      */
-    public GameData findGame(String gameID) throws DataAccessException {
+    public GameData findGame(int gameID) throws DataAccessException {
         if(myDatabase.readGame(gameID) != null) return myDatabase.readGame(gameID);
         throw(new DataAccessException("game not found"));
     }
@@ -60,9 +62,12 @@ public class GameDAO extends BaseDAO {
      * @param role - the role the player will take - WHITE, BLACK, OBSERVER
      * @param gameID - the game to join
      */
-    public void addPlayer(String username, String role, String gameID) throws DataAccessException{
+    public void addPlayer(String username, String role, int gameID) throws DataAccessException{
         GameData gameChanging = myDatabase.readGame(gameID);
-        if(gameChanging == null) throw(new DataAccessException("Unable to find game " + gameID));
+        if(gameChanging == null) {
+            System.out.println("throw: can't find game");
+            throw(new DataAccessException("Unable to find game " + gameID));
+        }
         String roleDefine;
         if(role.equalsIgnoreCase("white")) roleDefine = "WHITE";
         else if(role.equalsIgnoreCase("black")) roleDefine = "BLACK";
@@ -71,17 +76,24 @@ public class GameDAO extends BaseDAO {
 
         switch (roleDefine) {
             case "WHITE":
-                if(gameChanging.whiteUserName != null) gameChanging.setWhiteUserName(username);
-                else throw (new DataAccessException("WHITE is already taken"));
+                /*if(gameChanging.whiteUserName != null)*/ gameChanging.setWhiteUserName(username);
+                /*else {
+                    System.out.println("throw: white taken");
+                    throw (new DataAccessException("WHITE is already taken"));
+                }*/
                 break;
             case "BLACK":
-                if(gameChanging.blackUserName != null) gameChanging.setBlackUserName(username);
-                else throw (new DataAccessException("BLACK is already taken"));
+                /*if(gameChanging.blackUserName != null)*/ gameChanging.setBlackUserName(username);
+                /*else {
+                    System.out.println("throw: black taken");
+                    throw (new DataAccessException("BLACK is already taken"));
+                }*/
                 break;
             case "OBSERVER":
                 gameChanging.addObserver(username);
                 break;
             default:
+                System.out.println("throw: default");
                 throw (new DataAccessException("Unrecognized role"));
         }
     }
@@ -107,6 +119,11 @@ public class GameDAO extends BaseDAO {
     */
     public void removeGame(GameData deleteMe) throws DataAccessException {
         myDatabase.deleteGame(deleteMe);
+    }
+
+    public static int createGameID() {
+        gameNumInc++;
+        return gameNumInc;
     }
 
 }

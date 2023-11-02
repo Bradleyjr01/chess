@@ -30,7 +30,7 @@ public class LogoutHandler implements Route {
 
             //pass request to LogoutService and get result
             LogoutService service = new LogoutService();
-            System.out.println("auth: " + req.headers("authorization"));
+            //System.out.println("auth: " + req.headers("authorization"));
             if(req.headers("authorization") != null) {
                 MessageResult result = service.logout(req.headers("authorization"));
 

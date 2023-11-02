@@ -11,41 +11,38 @@ import java.net.HttpURLConnection;
 
 public class CreateGameHandler implements Route {
 
-        public Object handle(spark.Request req, spark.Response res) {
+    public Object handle(spark.Request req, spark.Response res) {
 
-            try {
-                //create new request
-                Gson gson = new Gson();
+        try {
+            //create new request
+            Gson gson = new Gson();
 
-                ///TODO get header and body to fill request object
-                String fullRequest = req.headers("authorization") + req.body();
-                CreateGameRequest request = gson.fromJson(fullRequest, CreateGameRequest.class);
-                //request.setAuthToken(req.headers("authorization"));
-                //request.setGameName(req.body());
+            CreateGameRequest request = gson.fromJson(req.body(), CreateGameRequest.class);
+            request.setAuthorization(req.headers("authorization"));
+            //System.out.println("token: " + request.getAuthorization() + "[" + req.headers("authorization") + "]" + ", name: " + request.getGameName());
 
-                //pass request to CreateGameService and get result
-                CreateGameService service = new CreateGameService();
-                CreateGameResult result = service.CreateGame(request);
+            //pass request to CreateGameService and get result
+            CreateGameService service = new CreateGameService();
+            CreateGameResult result = service.CreateGame(request);
 
-                //valid AuthToken
-                if(result.getGameID() != null) {
-                    String respData = "{ \"gameID\":\" " + result.getGameID() + "\" }";
-                    res.status(HttpURLConnection.HTTP_OK);
-                    return respData;
-                }
-                //no GameID provided
-                else {
-                    res.status(HttpURLConnection.HTTP_BAD_REQUEST);
-                    return "{ \"message\": \"Error: " + result.getMessage() + "\" }";
-                }
+            //valid AuthToken
+            if(result.getGameID() != 0) {
+                String respData = "{ \"gameID\":\" " + result.getGameID() + "\" }";
+                res.status(HttpURLConnection.HTTP_OK);
+                return respData;
             }
-            //Invalid AuthToken
-            catch (DataAccessException e){
-                res.status(HttpURLConnection.HTTP_UNAUTHORIZED);
-                e.printStackTrace();
-
-                return "{ \"message\": \"Error: " + e.getMessage() + "\" }";
+            //no GameID provided
+            else {
+                res.status(HttpURLConnection.HTTP_BAD_REQUEST);
+                return "{ \"message\": \"Error: " + result.getMessage() + "\" }";
             }
         }
+        //Invalid AuthToken
+        catch (DataAccessException e){
+            res.status(HttpURLConnection.HTTP_UNAUTHORIZED);
+            e.printStackTrace();
 
+            return "{ \"message\": \"Error: " + e.getMessage() + "\" }";
+        }
     }
+}

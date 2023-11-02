@@ -3,20 +3,20 @@ package Server.Results;
 import Server.Handlers.CreateGameHandler;
 
 public class CreateGameResult {
-    private String gameID;
+    private int gameID;
     private String message;
     public CreateGameResult() {}
 
-    public CreateGameResult(String id, String msg) {
+    public CreateGameResult(int id, String msg) {
         gameID = id;
         message = msg;
     }
 
-    public String getGameID() {
+    public int getGameID() {
         return gameID;
     }
 
-    public void setGameID(String gameID) {
+    public void setGameID(int gameID) {
         this.gameID = gameID;
     }
 

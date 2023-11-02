@@ -3,9 +3,12 @@ package Server.Handlers;
 import Server.DataAccessing.DataAccessException;
 import Server.Requests.AuthTokenOnlyRequest;
 import Server.Results.ListGamesResult;
+import Server.Results.MessageResult;
 import Server.Services.ListGamesService;
 import com.google.gson.Gson;
 import spark.Route;
+import java.nio.charset.StandardCharsets.*;
+
 
 import java.net.HttpURLConnection;
 
@@ -16,7 +19,8 @@ public class ListGamesHandler implements Route {
         try {
             //create new request
             Gson gson = new Gson();
-            AuthTokenOnlyRequest request = gson.fromJson(req.body(), AuthTokenOnlyRequest.class);
+            AuthTokenOnlyRequest request = new AuthTokenOnlyRequest();
+            request.setAuthorization(req.headers("authorization"));
 
             //pass request to ListGamesService and get result
             ListGamesService service = new ListGamesService();
@@ -24,8 +28,10 @@ public class ListGamesHandler implements Route {
 
             //valid AuthToken
             if (result.getMessage() == null) {
+                System.out.println("valid in list");
                 res.status(HttpURLConnection.HTTP_OK);
-                return result.getGames();
+                System.out.println("{ \"games\": " + result.getGames() + " }");
+                return "{ \"games\": " + result.getGames() + " }";
             }
             //something went wrong
             else {

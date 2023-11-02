@@ -4,16 +4,16 @@ package Server.Results;
 public class JoinGameResult {
 
     String message;
-    String gameID;
+    int gameID;
     String role;
 
     public JoinGameResult(String msg) {
         message = msg;
         role = null;
-        gameID = null;
+        gameID = -1;
     }
 
-    public JoinGameResult(String r, String id) {
+    public JoinGameResult(String r, int id) {
         message = null;
         role = r;
         gameID = id;
@@ -27,11 +27,11 @@ public class JoinGameResult {
         this.message = message;
     }
 
-    public String getGameID() {
+    public int getGameID() {
         return gameID;
     }
 
-    public void setGameID(String gameID) {
+    public void setGameID(int gameID) {
         this.gameID = gameID;
     }
 

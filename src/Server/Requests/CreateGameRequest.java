@@ -1,16 +1,16 @@
 package Server.Requests;
 
 public class CreateGameRequest {
-    private String authToken;
+    private String authorization;
     private String gameName;
     public CreateGameRequest() { }
 
-    public String getAuthToken() {
-        return authToken;
+    public String getAuthorization() {
+        return authorization;
     }
 
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
+    public void setAuthorization(String authorization) {
+        this.authorization = authorization;
     }
 
     public String getGameName() {
