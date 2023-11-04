@@ -14,7 +14,7 @@ public class CreateGameService {
      *         or error message if invalid Token or other Error
      *
      */
-    public CreateGameResult CreateGame(CreateGameRequest request) throws DataAccessException {
+    public CreateGameResult CreateGame(CreateGameRequest request) {
 
         //if no gameID given
         if(request.getGameName() == null) return new CreateGameResult(-1, "bad request");
@@ -25,7 +25,7 @@ public class CreateGameService {
             tokenAccess.findAuth(request.getAuthorization());
         }
         catch (DataAccessException e) {
-            throw new DataAccessException("unauthorized");
+            return new CreateGameResult(-1, "unauthorized");
         }
 
         //Create the game

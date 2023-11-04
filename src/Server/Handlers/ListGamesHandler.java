@@ -16,35 +16,30 @@ public class ListGamesHandler implements Route {
 
     public Object handle(spark.Request req, spark.Response res) {
 
-        try {
-            //create new request
-            Gson gson = new Gson();
-            AuthTokenOnlyRequest request = new AuthTokenOnlyRequest();
-            request.setAuthorization(req.headers("authorization"));
+        //create new request
+        Gson gson = new Gson();
+        AuthTokenOnlyRequest request = new AuthTokenOnlyRequest();
+        request.setAuthorization(req.headers("authorization"));
 
-            //pass request to ListGamesService and get result
-            ListGamesService service = new ListGamesService();
-            ListGamesResult result = service.listGames(request);
+        //pass request to ListGamesService and get result
+        ListGamesService service = new ListGamesService();
+        ListGamesResult result = service.listGames(request);
 
-            //valid AuthToken
-            if (result.getMessage() == null) {
-                System.out.println("valid in list");
-                res.status(HttpURLConnection.HTTP_OK);
-                System.out.println("{ \"games\": " + result.getGames() + " }");
-                return "{ \"games\": " + result.getGames() + " }";
-            }
-            //something went wrong
-            else {
-                res.status(HttpURLConnection.HTTP_INTERNAL_ERROR);
-                return "{ \"message\": \"Error: " + result.getMessage() + "\" }";
-            }
+        //valid AuthToken
+        if (result.getMessage() == null) {
+            System.out.println("valid in list");
+            res.status(HttpURLConnection.HTTP_OK);
+            System.out.println("{ \"games\": " + result.getGames() + " }");
+            return "{ \"games\": " + result.getGames() + " }";
         }
-        //Invalid token
-        catch (DataAccessException e) {
+        else if(result.getMessage().equals("unauthorized")) {
             res.status(HttpURLConnection.HTTP_UNAUTHORIZED);
-            e.printStackTrace();
-
-            return "{ \"message\": \"Error: " + e.getMessage() + "\" }";
+            return "{ \"message\": \"Error: unauthorized\" }";
+        }
+        //something went wrong
+        else {
+            res.status(HttpURLConnection.HTTP_INTERNAL_ERROR);
+            return "{ \"message\": \"Error: " + result.getMessage() + "\" }";
         }
     }
 }

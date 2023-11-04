@@ -17,7 +17,7 @@ public class JoinGameService {
      *         or JoinGame result with message "unauthorized" if password is not valid
      *
      */
-    public JoinGameResult joinGame(JoinGameRequest request) throws DataAccessException {
+    public JoinGameResult joinGame(JoinGameRequest request) {
         //verify AuthToken
         AuthDAO tokenAccess = new AuthDAO(Server.MEMORY_DATA_ACCESS);
         AuthToken myToken = new AuthToken();
@@ -63,7 +63,7 @@ public class JoinGameService {
         }
         else if(requestedColor.equalsIgnoreCase("BLACK")) {
             //System.out.println("check black");
-            if(myGame.getWhiteUserName() != null) {
+            if(myGame.getBlackUserName() != null) {
                 System.out.println("black taken");
                 return new JoinGameResult("already taken");
             }

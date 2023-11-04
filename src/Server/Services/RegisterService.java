@@ -39,7 +39,7 @@ public class RegisterService {
             myUser.setPassword(request.getPassword());
             myUser.setEmail(request.getEmail());
 
-            //add user to database
+            //add user to databaseregiste
             userAccess.addUser(myUser);
 
             //generate AuthToken

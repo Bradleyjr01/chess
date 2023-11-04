@@ -6,7 +6,7 @@ public class JoinGameRequest {
     private String playerColor;
     private String authorization;
 
-    JoinGameRequest(){}
+    public JoinGameRequest(){}
     public int getGameID() {
         return gameID;
     }

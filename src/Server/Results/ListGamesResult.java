@@ -28,7 +28,9 @@ public class ListGamesResult {
     }
 
     public ListGamesResult(ArrayList<ListGamesResult> list) {
-        games = myToJson(list);
+        //games = myToJson(list);
+        Gson gson = new Gson();
+        games = gson.toJson(list);
         message = null;
     }
     public ListGamesResult(String msg) {
@@ -96,7 +98,7 @@ public class ListGamesResult {
         StringBuilder string = new StringBuilder();
         string.append("[");
         for(ListGamesResult l : list) {
-            string.append("{\"gameID\":" + l.gameID
+            string.append("{\"gameID\": " + l.gameID
                     + ", \"whiteUsername\":\"" + l.whiteUsername
                     + "\", \"blackUsername\":\"" + l.blackUsername +
                     "\", " + "\"gameName\":\"" + l.gameName + "\"} ");

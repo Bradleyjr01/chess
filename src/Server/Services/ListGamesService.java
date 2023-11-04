@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class ListGamesService {
-    public ListGamesResult listGames(AuthTokenOnlyRequest request) throws DataAccessException{
+    public ListGamesResult listGames(AuthTokenOnlyRequest request) {
         AuthDAO tokenAccess = new AuthDAO(Server.MEMORY_DATA_ACCESS);
         AuthToken token = new AuthToken();
         try{
             token = tokenAccess.findAuth(request.getAuthorization());
         }
         catch(DataAccessException e) {
-            throw new DataAccessException("unauthorized");
+            return new ListGamesResult("unauthorized");
         }
         if(token != null){
             GameDAO gameAccess = new GameDAO(Server.MEMORY_DATA_ACCESS);

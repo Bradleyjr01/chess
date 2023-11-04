@@ -14,15 +14,7 @@ public class ClearService {
      * @return MessageResult containing status of request
      */
     public MessageResult clear(HTTPRequest request) {
-        //TODO: add check for admin privilege
-        AuthDAO tokenAccess = new AuthDAO(Server.MEMORY_DATA_ACCESS);
-        tokenAccess.clear();
-
-        UserDAO userAccess = new UserDAO(Server.MEMORY_DATA_ACCESS);
-        userAccess.clear();
-
-        GameDAO gameAccess = new GameDAO(Server.MEMORY_DATA_ACCESS);
-        gameAccess.clear();
+        Server.MEMORY_DATA_ACCESS.clear();
 
         return new MessageResult();
     }

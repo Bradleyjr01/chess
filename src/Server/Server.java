@@ -1,11 +1,12 @@
 package Server;
+import Server.DataAccessing.DataAccess;
 import Server.DataAccessing.MemoryDataAccess;
 import Server.Handlers.*;
 import spark.*;
 
 public class Server {
 
-    public static MemoryDataAccess MEMORY_DATA_ACCESS = new MemoryDataAccess();
+    public static DataAccess MEMORY_DATA_ACCESS = new MemoryDataAccess();
     public static void main(String[] args) {
         //try {
             //int port = Integer.parseInt(args[0]);

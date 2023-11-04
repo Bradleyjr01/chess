@@ -13,7 +13,6 @@ public class LoginHandler implements Route{
 
     public Object handle(spark.Request req, spark.Response res) {
 
-        try {
             //create new request
             Gson gson = new Gson();
             LoginRequest request = gson.fromJson(req.body(), LoginRequest.class);
@@ -30,18 +29,17 @@ public class LoginHandler implements Route{
                 res.status(HttpURLConnection.HTTP_OK);
                 return respData;
             }
+            //Invalid username or password
+            else if(result.getMessage().equals("unauthorized")) {
+                res.status(HttpURLConnection.HTTP_UNAUTHORIZED);
+                return "{ \"message\": \"Error: unauthorized\" }";
+            }
             //something weird happened
             else {
                 res.status(HttpURLConnection.HTTP_INTERNAL_ERROR);
                 return "{ \"message\": \"Error: Internal Error\" }";
 
             }
-        }
-        //Invalid username or password
-        catch (DataAccessException e){
-            res.status(HttpURLConnection.HTTP_UNAUTHORIZED);
-            return "{ \"message\": \"Error: unauthorized\" }";
-        }
     }
 
 }

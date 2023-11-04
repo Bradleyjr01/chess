@@ -13,36 +13,32 @@ public class CreateGameHandler implements Route {
 
     public Object handle(spark.Request req, spark.Response res) {
 
-        try {
-            //create new request
-            Gson gson = new Gson();
+        //create new request
+        Gson gson = new Gson();
 
-            CreateGameRequest request = gson.fromJson(req.body(), CreateGameRequest.class);
-            request.setAuthorization(req.headers("authorization"));
-            //System.out.println("token: " + request.getAuthorization() + "[" + req.headers("authorization") + "]" + ", name: " + request.getGameName());
+        CreateGameRequest request = gson.fromJson(req.body(), CreateGameRequest.class);
+        request.setAuthorization(req.headers("authorization"));
+        //System.out.println("token: " + request.getAuthorization() + "[" + req.headers("authorization") + "]" + ", name: " + request.getGameName());
 
-            //pass request to CreateGameService and get result
-            CreateGameService service = new CreateGameService();
-            CreateGameResult result = service.CreateGame(request);
+        //pass request to CreateGameService and get result
+        CreateGameService service = new CreateGameService();
+        CreateGameResult result = service.CreateGame(request);
 
-            //valid AuthToken
-            if(result.getGameID() != 0) {
-                String respData = "{ \"gameID\":\" " + result.getGameID() + "\" }";
-                res.status(HttpURLConnection.HTTP_OK);
-                return respData;
-            }
-            //no GameID provided
-            else {
-                res.status(HttpURLConnection.HTTP_BAD_REQUEST);
-                return "{ \"message\": \"Error: " + result.getMessage() + "\" }";
-            }
+        //valid AuthToken
+        if(result.getGameID() != -1) {
+            String respData = "{ \"gameID\":\" " + result.getGameID() + "\" }";
+            res.status(HttpURLConnection.HTTP_OK);
+            return respData;
         }
-        //Invalid AuthToken
-        catch (DataAccessException e){
+        else if(result.getMessage().equals("unauthorized")) {
             res.status(HttpURLConnection.HTTP_UNAUTHORIZED);
-            e.printStackTrace();
 
-            return "{ \"message\": \"Error: " + e.getMessage() + "\" }";
+            return "{ \"message\": \"Error: unauthorized\" }";
+        }
+        //no GameID provided
+        else {
+            res.status(HttpURLConnection.HTTP_BAD_REQUEST);
+            return "{ \"message\": \"Error: " + result.getMessage() + "\" }";
         }
     }
 }

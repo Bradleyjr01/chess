@@ -16,14 +16,15 @@ public class LoginService {
      *         or Login result with message "unauthorized" if password is not valid
      *
      */
-    public UserAccessResult login(LoginRequest request) throws DataAccessException {
+    public UserAccessResult login(LoginRequest request) {
         UserDAO userAccess = new UserDAO(Server.MEMORY_DATA_ACCESS);
         UserData myUser;
-        try{
+        if(request.getUsername() == null || request.getPassword() == null) return new UserAccessResult("unauthorized");
+        try {
             myUser = userAccess.findUser(request.getUsername());
         }
         catch(DataAccessException e) {
-            throw new DataAccessException("User " + request.getUsername() + " not found");
+            return new UserAccessResult("unauthorized");
         }
         if(myUser != null){
             if(request.getPassword().equals(myUser.getPassword())) {
@@ -37,7 +38,7 @@ public class LoginService {
                 return new UserAccessResult(tokenID, request.getUsername());
             }
         }
-        throw new DataAccessException("unauthorized");
+        return new UserAccessResult("unauthorized");
     }
 
 }

@@ -7,6 +7,8 @@ public class JoinGameResult {
     int gameID;
     String role;
 
+    public JoinGameResult() {}
+
     public JoinGameResult(String msg) {
         message = msg;
         role = null;

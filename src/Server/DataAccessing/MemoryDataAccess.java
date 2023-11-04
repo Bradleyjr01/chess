@@ -14,9 +14,9 @@ public class MemoryDataAccess implements DataAccess {
      */
     @Override
     public void clear() {
-        allUsers = new ArrayList<>();
-        allTokens = new ArrayList<>();
-        allGames = new ArrayList<>();
+        allUsers.clear();
+        allTokens.clear();
+        allGames.clear();
     }
 
     /**

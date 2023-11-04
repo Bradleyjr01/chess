@@ -15,23 +15,27 @@ public class LogoutService {
      *         or Login result with message "unauthorized" if password is not valid
      *
      */
-    public MessageResult logout(AuthTokenOnlyRequest request) throws DataAccessException {
+    public MessageResult logout(AuthTokenOnlyRequest request) {
         AuthDAO tokenAccess = new AuthDAO(Server.MEMORY_DATA_ACCESS);
         AuthToken token = new AuthToken();
         try{
             token = tokenAccess.findAuth(request.getAuthorization());
         }
         catch(DataAccessException e) {
-            throw new DataAccessException("unauthorized");
+            return new MessageResult("unauthorized");
         }
         if(token != null){
-            tokenAccess.deleteAuth(token);
+            try {
+                tokenAccess.deleteAuth(token);
+            } catch (DataAccessException e) {
+                return new MessageResult("unauthorized");
+            }
             return new MessageResult();
         }
         return new MessageResult("an error has occurred");
     }
 
-    public MessageResult logout(String myToken) throws DataAccessException {
+    public MessageResult logout(String myToken) {
         AuthDAO tokenAccess = new AuthDAO(Server.MEMORY_DATA_ACCESS);
         AuthToken token = new AuthToken();
         System.out.println("token: " + myToken);
@@ -39,10 +43,14 @@ public class LogoutService {
             token = tokenAccess.findAuth(myToken);
         }
         catch(DataAccessException e) {
-            throw new DataAccessException("unauthorized");
+            return new MessageResult("unauthorized");
         }
         if(token != null){
-            tokenAccess.deleteAuth(token);
+            try {
+                tokenAccess.deleteAuth(token);
+            } catch (DataAccessException e) {
+                return new MessageResult("unauthorized");
+            }
             return new MessageResult();
         }
         return new MessageResult("an error has occurred");
