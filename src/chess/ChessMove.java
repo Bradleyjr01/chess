@@ -25,5 +25,5 @@ public interface ChessMove {
      */
     ChessPiece.PieceType getPromotionPiece();
 
-    public ChessBoard makeAMove(ChessBoard currentBoard);
+    public Board makeAMove(Board currentBoard);
 }

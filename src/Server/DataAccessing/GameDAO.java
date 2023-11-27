@@ -18,6 +18,13 @@ public class GameDAO extends BaseDAO {
     }
 
     /**
+     * deletes all data from the database
+     */
+    public void clear() {
+        myDatabase.clear();
+    }
+
+    /**
      * add a new game to the database.
      * @param addMe - the game to add to the database
      */
@@ -65,7 +72,7 @@ public class GameDAO extends BaseDAO {
     public void addPlayer(String username, String role, int gameID) throws DataAccessException{
         GameData gameChanging = myDatabase.readGame(gameID);
         if(gameChanging == null) {
-            System.out.println("throw: can't find game");
+            //System.out.println("throw: can't find game");
             throw(new DataAccessException("Unable to find game " + gameID));
         }
         String roleDefine;
@@ -76,26 +83,25 @@ public class GameDAO extends BaseDAO {
 
         switch (roleDefine) {
             case "WHITE":
-                /*if(gameChanging.whiteUserName != null)*/ gameChanging.setWhiteUserName(username);
-                /*else {
-                    System.out.println("throw: white taken");
-                    throw (new DataAccessException("WHITE is already taken"));
-                }*/
+                if(gameChanging.getWhiteUserName() == null) gameChanging.setWhiteUserName(username);
+                System.out.println("white changed to " + username);
                 break;
             case "BLACK":
-                /*if(gameChanging.blackUserName != null)*/ gameChanging.setBlackUserName(username);
-                /*else {
-                    System.out.println("throw: black taken");
-                    throw (new DataAccessException("BLACK is already taken"));
-                }*/
+                if(gameChanging.getBlackUserName() == null) gameChanging.setBlackUserName(username);
+                System.out.println("black changed to " + username);
                 break;
             case "OBSERVER":
                 gameChanging.addObserver(username);
                 break;
             default:
-                System.out.println("throw: default");
                 throw (new DataAccessException("Unrecognized role"));
         }
+
+        System.out.println("updatedGame: w=" + gameChanging.getWhiteUserName()+ ", b="+ gameChanging.getBlackUserName() + ", id=" + gameChanging.getGameID());
+        myDatabase.updateGame(gameChanging);
+        GameData checkTwice = myDatabase.readGame(gameChanging);
+        System.out.println("2x check: w=" + checkTwice.getWhiteUserName()+ ", b="+ checkTwice.getBlackUserName() + ", id=" + checkTwice.getGameID());
+
     }
 
     /**

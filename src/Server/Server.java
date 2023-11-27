@@ -1,17 +1,20 @@
 package Server;
 import Server.DataAccessing.DataAccess;
 import Server.DataAccessing.MemoryDataAccess;
+import Server.DataAccessing.SQLDataAccess;
 import Server.Handlers.*;
 import spark.*;
 
 public class Server {
 
-    public static DataAccess MEMORY_DATA_ACCESS = new MemoryDataAccess();
+    //public static DataAccess MEMORY_DATA_ACCESS = new MemoryDataAccess();
+    public static DataAccess MEMORY_DATA_ACCESS = new SQLDataAccess();
     public static void main(String[] args) {
         //try {
             //int port = Integer.parseInt(args[0]);
         Spark.port(8080);
-        Spark.staticFiles.location("/public");
+        //Spark.staticFiles.location("/public");
+        Spark.externalStaticFileLocation("web");
 
             //createRoutes();
         Spark.delete("/db", new ClearHandler());
@@ -29,7 +32,11 @@ public class Server {
         Spark.put("/game", new JoinGameHandler());
 
         Spark.awaitInitialization();
-        System.out.println("Listening on port 8080");
+
+        System.out.println("Initializing database...");
+        Database.Database.main(new String[0]);
+
+        System.out.println("Listening on port 8080...");
         //} catch(ArrayIndexOutOfBoundsException | NumberFormatException ex) {
         //    System.err.println("Specify the port number as a command line parameter");
         //}

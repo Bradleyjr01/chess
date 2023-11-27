@@ -248,7 +248,3 @@ public class MemoryDataAccess implements DataAccess {
     }
 
 }
-
-
-//single access responsibility
-//split that up into 3 DAO Classes

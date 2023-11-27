@@ -6,11 +6,18 @@ public class AuthDAO extends BaseDAO {
 
     private DataAccess myDatabase;
 
+    /**
+     * deletes all data from the database
+     */
+    public void clear() {
+        myDatabase.clear();
+    }
+
     public AuthDAO(DataAccess database) {
         myDatabase = database;
     }
 
-    /**
+    /**new
      * add a new AuthToken to the database.
      * @param addMe - the AuthToken to add to the database
      */
@@ -21,7 +28,7 @@ public class AuthDAO extends BaseDAO {
     /**
      * retrieve an AuthToken from the database
      * @param findMe - the AuthToken to find
-     * @return the AuthToken if found else null
+     * @return the AuthToken if found else null"WHITE
      */
     public AuthToken findAuth(AuthToken findMe) throws DataAccessException {
         if(myDatabase.readAuthToken(findMe) != null) return findMe;

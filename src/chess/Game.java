@@ -8,7 +8,7 @@ import java.util.Collection;
 public class Game implements ChessGame {
 
     private TeamColor myTurn;
-    private ChessBoard myBoard;
+    private Board myBoard;
 
     public Game(){
         myTurn = TeamColor.WHITE;
@@ -41,6 +41,10 @@ public class Game implements ChessGame {
                 pieceMoves.remove(m);
             }
         }
+        System.out.println("valid moves: ");
+        for(ChessMove m : pieceMoves) {
+            System.out.print(m.toString() + ", ");
+        }
 
         return moveMe.pieceMoves(myBoard, startPosition);
     }
@@ -69,7 +73,6 @@ public class Game implements ChessGame {
                 ChessBoard lastBoard = new Board(myBoard);
                 valid = true;
                 System.out.println("valid: " + m.toString());
-                if(move.getPromotionPiece() != null) System.out.println("aaaAAAAAAAaaaaaaah");
                 myBoard = move.makeAMove(myBoard);
                 if(isInCheck(getTeamTurn())) {
                     myBoard = new Board(lastBoard);
@@ -136,8 +139,9 @@ public class Game implements ChessGame {
 
     @Override
     public boolean isInCheckmate(TeamColor teamColor) {
+        //TODO add checking for ways piece can remove checkmate
         System.out.println(myBoard.toString());
-        //if(!isInCheck(teamColor)) return false;
+        if(!isInCheck(teamColor)) return false;
 
         int startPos = 0;
         ChessPosition kingPosition = new Position(1,1);
@@ -188,7 +192,7 @@ public class Game implements ChessGame {
 
     @Override
     public void setBoard(ChessBoard board) {
-        myBoard = board;
+        myBoard = (Board)board;
     }
 
     @Override

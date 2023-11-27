@@ -2,26 +2,29 @@ package Server.DataAccessing;
 
 import chess.ChessGame;
 import chess.Game;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class GameData {
 
-    ChessGame game;
-    int gameID;
-    String whiteUserName = null;
-    String blackUserName = null;
-    String gameName = null;
-    ArrayList<String> observers = new ArrayList<>();
+    private Game game;
+    private int gameID;
+    private String whiteUserName = null;
+    private String blackUserName = null;
+    private String gameName = null;
+    private ArrayList<String> observers = new ArrayList<>();
 
     public GameData(){}
 
     public GameData(GameData g) {
         game = g.getGame();
         gameID = g.getGameID();
-        whiteUserName = g.getWhiteUserName();
-        blackUserName = g.getBlackUserName();
+        if(g.getWhiteUserName() == null) whiteUserName = null;
+        else whiteUserName = g.getWhiteUserName();
+        if(g.getBlackUserName() == null) blackUserName = null;
+        else blackUserName = g.getBlackUserName();
         gameName = g.getGameName();
         observers = g.getObservers();
     }
@@ -35,11 +38,11 @@ public class GameData {
         game.getBoard().resetBoard();
     }
 
-    public ChessGame getGame() {
+    public Game getGame() {
         return game;
     }
 
-    public void setGame(ChessGame game) {
+    public void setGame(Game game) {
         this.game = game;
     }
 
@@ -85,6 +88,11 @@ public class GameData {
 
     public void addObserver(String observer) {
         this.observers.add(observer);
+    }
+
+    public String getGameString() {
+        Gson gson = new Gson();
+        return gson.toJson(game);
     }
 
 

@@ -21,10 +21,7 @@ public class LogoutHandler implements Route {
 
         //create new request
         Gson gson = new Gson();
-        System.out.println("cp 1");
         //System.out.println("auth: " + req.headers("authorization"));
-        //AuthTokenOnlyRequest request = gson.fromJson(req.headers("authorization"), AuthTokenOnlyRequest.class);
-        //TODO: format request based on headers of req
 
 
         //pass request to LogoutService and get result

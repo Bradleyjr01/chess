@@ -8,9 +8,7 @@ import java.util.Objects;
 
 public class Board implements ChessBoard {
 
-    private ChessPiece[][] myBoard = new ChessPiece[8][8];
-    private ArrayList<ChessPiece> capturedPieces = new ArrayList<ChessPiece>();
-    private ChessMove lastMove;
+    private Piece[][] myBoard = new Piece[8][8];
 
 
     public Board(){}
@@ -18,36 +16,24 @@ public class Board implements ChessBoard {
     public Board(ChessBoard oldBoard) {
         for(int i = 0; i < 8; i++) {
             for(int j = 0; j < 8; j++) {
-                myBoard[i][j] = oldBoard.getPiece(new Position(i + 1, j + 1));
+                myBoard[i][j] = (Piece)oldBoard.getPiece(new Position(i + 1, j + 1));
             }
         }
-
     }
 
     @Override
     public void addPiece(ChessPosition position, ChessPiece piece) {
-        myBoard[position.getRow()][position.getColumn()] = piece;
+        myBoard[position.getRow()][position.getColumn()] = (Piece)piece;
         //System.out.println("IN TRANSIT:\n" + this.toString());
     }
 
-    public void addPiece(ChessPosition[] positions, ChessPiece piece){
+    public void addPiece(ChessPosition[] positions, Piece piece){
         for(int i = 0; i < positions.length; i++) {
             myBoard[positions[i].getRow()][positions[i].getColumn()] = piece;
         }
     }
-
-    public void capturePiece(ChessPiece captured) {
-        capturedPieces.add(captured);
-    }
-
-    public ChessPiece undoCaptured() {
-        ChessPiece lastCaptured = capturedPieces.get(capturedPieces.size() - 1);
-        capturedPieces.remove(capturedPieces.size() - 1);
-        return lastCaptured;
-    }
-
     @Override
-    public ChessPiece getPiece(ChessPosition position) {
+    public Piece getPiece(ChessPosition position) {
         return myBoard[position.getRow()][position.getColumn()];
     }
 
@@ -107,8 +93,6 @@ public class Board implements ChessBoard {
 
     }
 
-    public ChessMove getLastMove() { return lastMove; }
-
     @Override
     public String toString() {
         StringBuilder printBoard = new StringBuilder();
@@ -132,13 +116,12 @@ public class Board implements ChessBoard {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Board board = (Board) o;
-        return Arrays.equals(myBoard, board.myBoard) && Objects.equals(capturedPieces, board.capturedPieces) && Objects.equals(lastMove, board.lastMove);
+        return Arrays.equals(myBoard, board.myBoard);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(capturedPieces, lastMove);
-        result = 31 * result + Arrays.hashCode(myBoard);
+        int result = 31 * Arrays.hashCode(myBoard);
         return result;
     }
 

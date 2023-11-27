@@ -17,9 +17,6 @@ public class ServiceTests {
     private static GameData myGame = new GameData();
     private AuthToken myToken = new AuthToken();
 
-    //Write one test for each service
-    //do not need to connect to server for this
-
     @BeforeEach
     public void setup() {
         myUser.setUsername("me");
@@ -48,7 +45,7 @@ public class ServiceTests {
     }
 
     @Test
-    public void testRegister() {
+    public void testRegisterGood() {
         RegisterService myRegister = new RegisterService();
 
         //good request
@@ -58,27 +55,30 @@ public class ServiceTests {
         goodRequest.setEmail("2mail@email.com");
 
         UserAccessResult registerResult = myRegister.register(goodRequest);
-        Assertions.assertEquals(registerResult.getMessage(), "","An error occured");
+        Assertions.assertEquals(registerResult.getMessage(), "", "An error occured");
         Assertions.assertEquals(registerResult.getUsername(), goodRequest.getUsername(), "Username is not the same");
         Assertions.assertNotNull(registerResult.getAuthToken(), "No authToken returned");
-
-
-        //bad requests
-        RegisterRequest badRequest = new RegisterRequest();
-        registerResult = myRegister.register(badRequest);
-        Assertions.assertNotNull(registerResult.getMessage(), "No error returned with no parameters");
-
-        badRequest.setUsername(myUser.getUsername());
-        registerResult = myRegister.register(badRequest);
-        Assertions.assertNotNull(registerResult.getMessage(), "No error returned with missing parameters");
-
-        badRequest.setPassword(myUser.getPassword());
-        registerResult = myRegister.register(badRequest);
-        Assertions.assertNotNull(registerResult.getMessage(), "No error returned with missing parameters");
     }
 
     @Test
-    public void testLogin() {
+    public void testRegisterBad() {
+    RegisterService myRegister = new RegisterService();
+    //bad requests
+    RegisterRequest badRequest = new RegisterRequest();
+    UserAccessResult registerResult = myRegister.register(badRequest);
+    Assertions.assertNotNull(registerResult.getMessage(), "No error returned with no parameters");
+
+    badRequest.setUsername(myUser.getUsername());
+    registerResult = myRegister.register(badRequest);
+    Assertions.assertNotNull(registerResult.getMessage(), "No error returned with missing parameters");
+
+    badRequest.setPassword(myUser.getPassword());
+    registerResult = myRegister.register(badRequest);
+    Assertions.assertNotNull(registerResult.getMessage(), "No error returned with missing parameters");
+    }
+
+    @Test
+    public void testLoginGood() {
         LoginService myLogin = new LoginService();
         myUser.setUsername("me");
         myUser.setPassword("password");
@@ -95,15 +95,20 @@ public class ServiceTests {
         loginResult = myLogin.login(goodRequest);
         Assertions.assertEquals(myUser.getUsername(), loginResult.getUsername(), "wrong username");
         Assertions.assertNotNull(loginResult.getAuthToken(), "No authToken returned");
+    }
+
+    @Test
+    public void testLoginBad() {
+        LoginService myLogin = new LoginService();
 
         //bad requests
         LoginRequest badRequest = new LoginRequest();
-        loginResult = myLogin.login(badRequest);
+        UserAccessResult loginResult = myLogin.login(badRequest);
         Assertions.assertNotNull(loginResult.getMessage(), "No error returned with no parameters");
     }
 
     @Test
-    public void testLogout() {
+    public void testLogoutGood() {
         AuthToken token = new AuthToken(myToken.getAuthToken(), myUser.getUsername());
 
         LogoutService myLogout = new LogoutService();
@@ -115,7 +120,14 @@ public class ServiceTests {
         MessageResult logoutResult = new MessageResult();
 
         logoutResult = myLogout.logout(goodRequest);
-        Assertions.assertNull(logoutResult.getMessage(),"An error occured");
+        Assertions.assertNull(logoutResult.getMessage(), "An error occured");
+    }
+
+    @Test
+    public void testLogoutBad() {
+        AuthToken token = new AuthToken(myToken.getAuthToken(), myUser.getUsername());
+        LogoutService myLogout = new LogoutService();
+        MessageResult logoutResult = new MessageResult();
 
         //bad requests
         AuthTokenOnlyRequest badRequest = new AuthTokenOnlyRequest();
@@ -124,7 +136,7 @@ public class ServiceTests {
     }
 
     @Test
-    public void testListGames() {
+    public void testListGamesGood() {
         AuthToken token = new AuthToken(myToken.getAuthToken(), myUser.getUsername());
         ListGamesService myList = new ListGamesService();
 
@@ -137,6 +149,14 @@ public class ServiceTests {
         listResult = myList.listGames(goodRequest);
         Assertions.assertNull(listResult.getMessage(),"An error occured");
         Assertions.assertNotNull(listResult.getGames(), "returned no games");
+    }
+
+    @Test
+    public void testListGamesBad() {
+        AuthToken token = new AuthToken(myToken.getAuthToken(), myUser.getUsername());
+        ListGamesService myList = new ListGamesService();
+
+        ListGamesResult listResult = new ListGamesResult();
 
         //bad requests
         AuthTokenOnlyRequest badRequest = new AuthTokenOnlyRequest();
@@ -145,7 +165,7 @@ public class ServiceTests {
     }
 
     @Test
-    public void testCreateGame() {
+    public void testCreateGameGood() {
         AuthToken token = new AuthToken(myToken.getAuthToken(), myUser.getUsername());
         CreateGameService myCreate = new CreateGameService();
 
@@ -159,6 +179,14 @@ public class ServiceTests {
         gameResult = myCreate.CreateGame(goodRequest);
         Assertions.assertNull(gameResult.getMessage(),"An error occured");
         Assertions.assertNotEquals(gameResult.getGameID(), "returned no id");
+    }
+
+    @Test
+    public void testCreateGameBad() {
+        AuthToken token = new AuthToken(myToken.getAuthToken(), myUser.getUsername());
+        CreateGameService myCreate = new CreateGameService();
+
+        CreateGameResult gameResult = new CreateGameResult();
 
         //bad requests
         CreateGameRequest badRequest = new CreateGameRequest();
@@ -167,7 +195,7 @@ public class ServiceTests {
     }
 
     @Test
-    public void testJoinGame() {
+    public void testJoinGameGood() {
         AuthToken token = new AuthToken(myToken.getAuthToken(), myUser.getUsername());
         JoinGameService myJoin = new JoinGameService();
 
@@ -181,6 +209,15 @@ public class ServiceTests {
 
         gameResult = myJoin.joinGame(goodRequest);
         Assertions.assertNull(gameResult.getMessage(),"An error occured");
+        //check that object has changed in database
+    }
+
+    @Test
+    public void testJoinGameBad() {
+        AuthToken token = new AuthToken(myToken.getAuthToken(), myUser.getUsername());
+        JoinGameService myJoin = new JoinGameService();
+
+        JoinGameResult gameResult = new JoinGameResult();
 
         //bad requests
         JoinGameRequest badRequest = new JoinGameRequest();

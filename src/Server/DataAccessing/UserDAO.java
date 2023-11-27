@@ -11,6 +11,13 @@ public class UserDAO extends BaseDAO {
     }
 
     /**
+     * deletes all data from the database
+     */
+    public void clear() {
+        myDatabase.clear();
+    }
+
+    /**
      * add a new user to the database.
      * @param addMe - the user to add to the database
      */

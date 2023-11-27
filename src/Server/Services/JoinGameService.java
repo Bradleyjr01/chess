@@ -25,7 +25,7 @@ public class JoinGameService {
             myToken = tokenAccess.findAuth(request.getAuthorization());
         }
         catch (DataAccessException e) {
-            System.out.println("invalid auth");
+            //System.out.println("invalid auth");
             return new JoinGameResult("unauthorized");
         }
 
@@ -57,27 +57,29 @@ public class JoinGameService {
         if(requestedColor.equalsIgnoreCase("WHITE")) {
             //System.out.println("check white");
             if(myGame.getWhiteUserName() != null) {
-                System.out.println("white taken");
+                //System.out.println("white taken");
                 return new JoinGameResult("already taken");
             }
         }
         else if(requestedColor.equalsIgnoreCase("BLACK")) {
             //System.out.println("check black");
             if(myGame.getBlackUserName() != null) {
-                System.out.println("black taken");
+                //System.out.println("black taken");
                 return new JoinGameResult("already taken");
             }
         }
 
         //add the player to the game
         try {
-            System.out.println("added");
+            //System.out.println("added");
+            //GameData newGame = new GameData();
             gameAccess.addPlayer(myToken.getUserID(), requestedColor, myGame.getGameID());
+
         }
         catch(DataAccessException e) {
             return new JoinGameResult("can't find something");
         }
-        System.out.println("sending result");
+        //System.out.println("sending result");
         return new JoinGameResult(requestedColor, myGame.getGameID());
     }
 

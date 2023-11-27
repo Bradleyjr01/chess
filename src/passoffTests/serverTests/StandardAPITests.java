@@ -42,6 +42,7 @@ public class StandardAPITests {
         createRequest.gameName = "testGame";
 
         serverFacade = new TestServerFacade("localhost", TestFactory.getServerPort());
+        Server.Server.main(new String[0]);
     }
 
 

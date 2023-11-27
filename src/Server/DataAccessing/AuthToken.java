@@ -16,7 +16,6 @@ public class AuthToken {
     }
 
     public String getUserID() {
-        System.out.println("my Id is:" + userID);
         return userID;
     }
 

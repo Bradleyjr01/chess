@@ -21,25 +21,30 @@ public class Move implements ChessMove{
         if(promotionPiece != null) System.out.println("promotionPiece: " + promotionPiece);
     }
 
-    public ChessBoard makeAMove(ChessBoard currentBoard) {
+    public Board makeAMove(Board currentBoard) {
         //TODO: promoteTo never fills based on given Move()
         System.out.println("given move: " + toString());
 
-        ChessBoard moveBoard = new Board(currentBoard);
+        Board moveBoard = new Board(currentBoard);
         ChessPiece toMove = moveBoard.getPiece(getStartPosition());
         if(toMove == null) return currentBoard;
         //System.out.print("moving: " + toMove.toString());
         ChessPiece taken = moveBoard.getPiece(getEndPosition());
         //if(taken != null) System.out.println(" to take " + taken.toString());
         //else System.out.println(" to empty");
-        //if(promoteTo != null) System.out.println("promote? " + promoteTo.toString());
-        if(toMove.getPieceType() == ChessPiece.PieceType.PAWN) {
+        if(promoteTo != null) System.out.println("promote? " + promoteTo.toString());
+        else System.out.println("promote? null");
+        if(toMove.getPieceType() == ChessPiece.PieceType.PAWN && promoteTo != null) {
             if((toMove.getTeamColor() == ChessGame.TeamColor.WHITE && getEndPosition().getRow() == 7)
                 || (toMove.getTeamColor() == ChessGame.TeamColor.BLACK && getEndPosition().getRow() == 0)) {
-                promoteTo = ChessPiece.PieceType.QUEEN;
+                //promoteTo = ChessPiece.PieceType.QUEEN;
                 System.out.print("promoting " + toMove.toString());
                 moveBoard.addPiece(getEndPosition(), new Piece(toMove.getTeamColor(), promoteTo, true));
                 System.out.println(" to " + promoteTo.toString());
+                moveBoard.addPiece(getStartPosition(), null);
+            }
+            else {
+                moveBoard.addPiece(getEndPosition(), new Piece(toMove.getTeamColor(), toMove.getPieceType(), true));
                 moveBoard.addPiece(getStartPosition(), null);
             }
         }
