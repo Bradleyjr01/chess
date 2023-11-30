@@ -1,6 +1,7 @@
 package passoffTests;
 
-import chess.*;
+import StartCode.*;
+import Resources.*;
 
 /**
  * Used for testing your code

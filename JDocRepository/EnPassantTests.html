@@ -91,7 +91,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">EnPassantTests</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">Tests if the ChessGame implementation can handle En Passant moves
+<div class="block">Tests if the StartCode.ChessGame implementation can handle En Passant moves
  En Passant is a situational move in chess taken directly after your opponent has double moved a pawn
  If their pawn moves next to one of your pawns, so it passes where your pawn could have captured it, you
  may capture their pawn with your pawn as if they had only moved a single space. You may only take this move
@@ -109,7 +109,7 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>private <a href="chess/ChessBoard.html" title="interface in chess">ChessBoard</a></code></div>
+<div class="col-first even-row-color"><code>private <a href="chess/ChessBoard.html" title="interface in chess">StartCode.ChessBoard</a></code></div>
 <div class="col-second even-row-color"><code><a href="#chessBoard" class="member-name-link">chessBoard</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 </div>
@@ -177,7 +177,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="chessBoard">
 <h3>chessBoard</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="chess/ChessBoard.html" title="interface in chess">ChessBoard</a></span>&nbsp;<span class="element-name">chessBoard</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="chess/ChessBoard.html" title="interface in chess">StartCode.ChessBoard</a></span>&nbsp;<span class="element-name">chessBoard</span></div>
 </section>
 </li>
 </ul>
@@ -215,10 +215,10 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@Test
 @DisplayName("White En Passant Right")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">enPassantWhiteRight</span>()
-                         throws <span class="exceptions"><a href="chess/InvalidMoveException.html" title="class in chess">InvalidMoveException</a></span></div>
+                         throws <span class="exceptions"><a href="chess/InvalidMoveException.html" title="class in chess">Resources.InvalidMoveException</a></span></div>
 <dl class="notes">
 <dt>Throws:</dt>
-<dd><code><a href="chess/InvalidMoveException.html" title="class in chess">InvalidMoveException</a></code></dd>
+<dd><code><a href="chess/InvalidMoveException.html" title="class in chess">Resources.InvalidMoveException</a></code></dd>
 </dl>
 </section>
 </li>
@@ -228,10 +228,10 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@Test
 @DisplayName("White En Passant Left")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">enPassantWhiteLeft</span>()
-                        throws <span class="exceptions"><a href="chess/InvalidMoveException.html" title="class in chess">InvalidMoveException</a></span></div>
+                        throws <span class="exceptions"><a href="chess/InvalidMoveException.html" title="class in chess">Resources.InvalidMoveException</a></span></div>
 <dl class="notes">
 <dt>Throws:</dt>
-<dd><code><a href="chess/InvalidMoveException.html" title="class in chess">InvalidMoveException</a></code></dd>
+<dd><code><a href="chess/InvalidMoveException.html" title="class in chess">Resources.InvalidMoveException</a></code></dd>
 </dl>
 </section>
 </li>
@@ -241,10 +241,10 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@Test
 @DisplayName("Black En Passant Right")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">enPassantBlackRight</span>()
-                         throws <span class="exceptions"><a href="chess/InvalidMoveException.html" title="class in chess">InvalidMoveException</a></span></div>
+                         throws <span class="exceptions"><a href="chess/InvalidMoveException.html" title="class in chess">Resources.InvalidMoveException</a></span></div>
 <dl class="notes">
 <dt>Throws:</dt>
-<dd><code><a href="chess/InvalidMoveException.html" title="class in chess">InvalidMoveException</a></code></dd>
+<dd><code><a href="chess/InvalidMoveException.html" title="class in chess">Resources.InvalidMoveException</a></code></dd>
 </dl>
 </section>
 </li>
@@ -254,10 +254,10 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@Test
 @DisplayName("Black En Passant Left")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">enPassantBlackLeft</span>()
-                        throws <span class="exceptions"><a href="chess/InvalidMoveException.html" title="class in chess">InvalidMoveException</a></span></div>
+                        throws <span class="exceptions"><a href="chess/InvalidMoveException.html" title="class in chess">Resources.InvalidMoveException</a></span></div>
 <dl class="notes">
 <dt>Throws:</dt>
-<dd><code><a href="chess/InvalidMoveException.html" title="class in chess">InvalidMoveException</a></code></dd>
+<dd><code><a href="chess/InvalidMoveException.html" title="class in chess">Resources.InvalidMoveException</a></code></dd>
 </dl>
 </section>
 </li>
@@ -267,10 +267,10 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations">@Test
 @DisplayName("Can Only En Passant on Next Turn")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">missedEnPassant</span>()
-                     throws <span class="exceptions"><a href="chess/InvalidMoveException.html" title="class in chess">InvalidMoveException</a></span></div>
+                     throws <span class="exceptions"><a href="chess/InvalidMoveException.html" title="class in chess">Resources.InvalidMoveException</a></span></div>
 <dl class="notes">
 <dt>Throws:</dt>
-<dd><code><a href="chess/InvalidMoveException.html" title="class in chess">InvalidMoveException</a></code></dd>
+<dd><code><a href="chess/InvalidMoveException.html" title="class in chess">Resources.InvalidMoveException</a></code></dd>
 </dl>
 </section>
 </li>

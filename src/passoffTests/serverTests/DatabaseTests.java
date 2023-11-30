@@ -2,10 +2,8 @@ package passoffTests.serverTests;
 
 import Server.DataAccessing.*;
 import Server.Server;
-import chess.Game;
+import Resources.Game;
 import org.junit.jupiter.api.*;
-
-import java.util.ArrayList;
 
 public class DatabaseTests {
 

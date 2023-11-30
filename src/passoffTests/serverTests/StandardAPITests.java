@@ -283,7 +283,7 @@ public class StandardAPITests {
 
     @Test
     @Order(12)
-    @DisplayName("Watch Game")
+    @DisplayName("Watch Resources.Game")
     public void goodWatch() {
         //create game
         TestModels.TestCreateResult createResult = serverFacade.createGame(createRequest, existingAuth);
@@ -340,7 +340,7 @@ public class StandardAPITests {
 
     @Test
     @Order(14)
-    @DisplayName("Watch Bad Game ID")
+    @DisplayName("Watch Bad Resources.Game ID")
     public void badGameIDWatch() {
         //create game
         TestModels.TestCreateResult createResult = serverFacade.createGame(createRequest, existingAuth);
@@ -368,7 +368,7 @@ public class StandardAPITests {
     public void manyWatch() {
         //create game
         createRequest = new TestModels.TestCreateRequest();
-        createRequest.gameName = "Test Game";
+        createRequest.gameName = "Test Resources.Game";
         TestModels.TestCreateResult createResult = serverFacade.createGame(createRequest, existingAuth);
 
         //make watch request
@@ -437,7 +437,7 @@ public class StandardAPITests {
 
     @Test
     @Order(16)
-    @DisplayName("Join Created Game")
+    @DisplayName("Join Created Resources.Game")
     public void goodJoin() {
         //create game
         TestModels.TestCreateResult createResult = serverFacade.createGame(createRequest, existingAuth);
@@ -529,7 +529,7 @@ public class StandardAPITests {
 
     @Test
     @Order(19)
-    @DisplayName("Join Bad Game ID")
+    @DisplayName("Join Bad Resources.Game ID")
     public void badGameIDJoin() {
         //create game
         createRequest = new TestModels.TestCreateRequest();

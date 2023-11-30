@@ -118,10 +118,10 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>private <a href="chess/ChessBoard.html" title="interface in chess">ChessBoard</a></code></div>
+<div class="col-first even-row-color"><code>private <a href="chess/ChessBoard.html" title="interface in chess">StartCode.ChessBoard</a></code></div>
 <div class="col-second even-row-color"><code><a href="#board" class="member-name-link">board</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>private <a href="chess/ChessGame.html" title="interface in chess">ChessGame</a></code></div>
+<div class="col-first odd-row-color"><code>private <a href="chess/ChessGame.html" title="interface in chess">StartCode.ChessGame</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#game" class="member-name-link">game</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 </div>
@@ -161,7 +161,7 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#invalidMoves()" class="member-name-link">invalidMoves</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#promotionMoves(chess.ChessPiece.PieceType)" class="member-name-link">promotionMoves</a><wbr>(<a href="chess/ChessPiece.PieceType.html" title="enum class in chess">ChessPiece.PieceType</a>&nbsp;promotionType)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#promotionMoves(chess.ChessPiece.PieceType)" class="member-name-link">promotionMoves</a><wbr>(<a href="chess/ChessPiece.PieceType.html" title="enum class in chess">StartCode.ChessPiece.PieceType</a>&nbsp;promotionType)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#scholarsMate()" class="member-name-link">scholarsMate</a>()</code></div>
@@ -201,13 +201,13 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="game">
 <h3>game</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="chess/ChessGame.html" title="interface in chess">ChessGame</a></span>&nbsp;<span class="element-name">game</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="chess/ChessGame.html" title="interface in chess">StartCode.ChessGame</a></span>&nbsp;<span class="element-name">game</span></div>
 </section>
 </li>
 <li>
 <section class="detail" id="board">
 <h3>board</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="chess/ChessBoard.html" title="interface in chess">ChessBoard</a></span>&nbsp;<span class="element-name">board</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="chess/ChessBoard.html" title="interface in chess">StartCode.ChessBoard</a></span>&nbsp;<span class="element-name">board</span></div>
 </section>
 </li>
 </ul>
@@ -243,12 +243,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="validMoves()">
 <h3>validMoves</h3>
 <div class="member-signature"><span class="annotations">@Test
-@DisplayName("Normal Make Move")
+@DisplayName("Normal Make Resources.Move")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">validMoves</span>()
-                throws <span class="exceptions"><a href="chess/InvalidMoveException.html" title="class in chess">InvalidMoveException</a></span></div>
+                throws <span class="exceptions"><a href="chess/InvalidMoveException.html" title="class in chess">Resources.InvalidMoveException</a></span></div>
 <dl class="notes">
 <dt>Throws:</dt>
-<dd><code><a href="chess/InvalidMoveException.html" title="class in chess">InvalidMoveException</a></code></dd>
+<dd><code><a href="chess/InvalidMoveException.html" title="class in chess">Resources.InvalidMoveException</a></code></dd>
 </dl>
 </section>
 </li>
@@ -256,12 +256,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="invalidMoves()">
 <h3>invalidMoves</h3>
 <div class="member-signature"><span class="annotations">@Test
-@DisplayName("Invalid Make Move")
+@DisplayName("Invalid Make Resources.Move")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">invalidMoves</span>()
-                  throws <span class="exceptions"><a href="chess/InvalidMoveException.html" title="class in chess">InvalidMoveException</a></span></div>
+                  throws <span class="exceptions"><a href="chess/InvalidMoveException.html" title="class in chess">Resources.InvalidMoveException</a></span></div>
 <dl class="notes">
 <dt>Throws:</dt>
-<dd><code><a href="chess/InvalidMoveException.html" title="class in chess">InvalidMoveException</a></code></dd>
+<dd><code><a href="chess/InvalidMoveException.html" title="class in chess">Resources.InvalidMoveException</a></code></dd>
 </dl>
 </section>
 </li>
@@ -272,11 +272,11 @@ loadScripts(document, 'script');</script>
 @EnumSource(value=<a href="chess/ChessPiece.PieceType.html" title="enum class in chess">PieceType.class</a>,
             names={"QUEEN","ROOK","KNIGHT","BISHOP"})
 @DisplayName("Pawn Promotion")
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">promotionMoves</span><wbr><span class="parameters">(<a href="chess/ChessPiece.PieceType.html" title="enum class in chess">ChessPiece.PieceType</a>&nbsp;promotionType)</span>
-                    throws <span class="exceptions"><a href="chess/InvalidMoveException.html" title="class in chess">InvalidMoveException</a></span></div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">promotionMoves</span><wbr><span class="parameters">(<a href="chess/ChessPiece.PieceType.html" title="enum class in chess">StartCode.ChessPiece.PieceType</a>&nbsp;promotionType)</span>
+                    throws <span class="exceptions"><a href="chess/InvalidMoveException.html" title="class in chess">Resources.InvalidMoveException</a></span></div>
 <dl class="notes">
 <dt>Throws:</dt>
-<dd><code><a href="chess/InvalidMoveException.html" title="class in chess">InvalidMoveException</a></code></dd>
+<dd><code><a href="chess/InvalidMoveException.html" title="class in chess">Resources.InvalidMoveException</a></code></dd>
 </dl>
 </section>
 </li>
@@ -324,12 +324,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="scholarsMate()">
 <h3>scholarsMate</h3>
 <div class="member-signature"><span class="annotations">@Test
-@DisplayName("Full Game Checkmate")
+@DisplayName("Full Resources.Game Checkmate")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">scholarsMate</span>()
-                  throws <span class="exceptions"><a href="chess/InvalidMoveException.html" title="class in chess">InvalidMoveException</a></span></div>
+                  throws <span class="exceptions"><a href="chess/InvalidMoveException.html" title="class in chess">Resources.InvalidMoveException</a></span></div>
 <dl class="notes">
 <dt>Throws:</dt>
-<dd><code><a href="chess/InvalidMoveException.html" title="class in chess">InvalidMoveException</a></code></dd>
+<dd><code><a href="chess/InvalidMoveException.html" title="class in chess">Resources.InvalidMoveException</a></code></dd>
 </dl>
 </section>
 </li>

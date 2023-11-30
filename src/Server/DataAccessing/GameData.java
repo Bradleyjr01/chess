@@ -1,7 +1,6 @@
 package Server.DataAccessing;
 
-import chess.ChessGame;
-import chess.Game;
+import Resources.Game;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

@@ -3,14 +3,11 @@ package passoffTests.serverTests;
 import Server.DataAccessing.*;
 import Server.Requests.*;
 import Server.Results.*;
-import chess.ChessGame;
-import chess.Game;
+//import ChessProject.shared.main.Resources.Game;
 import org.junit.jupiter.api.*;
 import Server.Services.*;
 import Server.Server;
-import passoffTests.TestFactory;
-import passoffTests.obfuscatedTestClasses.TestServerFacade;
-import passoffTests.testClasses.TestModels;
+
 public class ServiceTests {
 
     private static UserData myUser = new UserData();
@@ -27,7 +24,7 @@ public class ServiceTests {
         myToken.setUserID("me");
         Server.MEMORY_DATA_ACCESS.writeAuthToken(myToken);
 
-        myGame.setGame(new Game());
+        //myGame.setGame(new Resources.Game());
         myGame.setGameName("game");
         myGame.setGameID(1);
         Server.MEMORY_DATA_ACCESS.newGame(myGame);

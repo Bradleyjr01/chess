@@ -49,7 +49,7 @@ public class PersistenceTest {
 
     private TestModels.TestCreateRequest validCreateGameRequest() {
         var result = new TestModels.TestCreateRequest();
-        result.gameName = "Test Game";
+        result.gameName = "Test Resources.Game";
         return result;
     }
 
@@ -118,10 +118,10 @@ public class PersistenceTest {
 
 
         //check that both tests are there
-        Assertions.assertEquals("test1", game1.gameName, "Game name changed after restart");
-        Assertions.assertEquals(createResult.gameID, game1.gameID, "Game ID Changed after restart");
-        Assertions.assertEquals("test2", game2.gameName, "Game name changed after restart");
-        Assertions.assertEquals(createResult2.gameID, game2.gameID, "Game ID changed after restart");
+        Assertions.assertEquals("test1", game1.gameName, "Resources.Game name changed after restart");
+        Assertions.assertEquals(createResult.gameID, game1.gameID, "Resources.Game ID Changed after restart");
+        Assertions.assertEquals("test2", game2.gameName, "Resources.Game name changed after restart");
+        Assertions.assertEquals(createResult2.gameID, game2.gameID, "Resources.Game ID changed after restart");
 
         //check players in test1 game
         Assertions.assertEquals(existingUser.username, game1.whiteUsername,

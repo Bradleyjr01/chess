@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="junit.jupiter" level="project" />
+    <orderEntry type="library" exported="" name="junit.jupiter" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -22,6 +22,6 @@
     <orderEntry type="library" exported="" name="google.code.gson" level="project" />
     <orderEntry type="library" exported="" name="mysql.connector.java" level="project" />
     <orderEntry type="library" exported="" name="mysql.connector.j" level="project" />
-    <orderEntry type="module" module-name="shared" />
+    <orderEntry type="module" module-name="shared" exported="" />
   </component>
 </module>
