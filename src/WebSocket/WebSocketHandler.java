@@ -272,11 +272,12 @@ public class WebSocketHandler {
                     token = reader.peek();
                     moveCommand.setMyUsername(reader.nextString());
                 }
-                /*if("move".equals(fieldname)) {
+                if("move".equals(fieldname)) {
                     token = reader.peek();
+                    reader.beginObject();
                     Gson gson2 = ChessSerialization.createGsonSerializer();
                     gson2.fromJson(reader.beginObject(), Move.class);
-                }*/
+                }
                 if("gameID".equals(fieldname)) {
                     token = reader.peek();
                     moveCommand.setGameID(reader.nextInt());
