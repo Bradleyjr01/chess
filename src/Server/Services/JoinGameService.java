@@ -50,6 +50,7 @@ public class JoinGameService {
         String requestedColor;
         if(request.getPlayerColor() != null) {
             requestedColor = request.getPlayerColor();
+            System.out.println("Requested Color = " + requestedColor);
         }
         else {
             requestedColor = "OBSERVER";
@@ -72,7 +73,6 @@ public class JoinGameService {
         //add the player to the game
         try {
             //System.out.println("added");
-            //GameData newGame = new GameData();
             gameAccess.addPlayer(myToken.getUserID(), requestedColor, myGame.getGameID());
 
         }
@@ -80,6 +80,7 @@ public class JoinGameService {
             return new JoinGameResult("can't find something");
         }
         //System.out.println("sending result");
+        System.out.println("endpoint Requested Color = " + requestedColor);
         return new JoinGameResult(requestedColor, myGame.getGameID());
     }
 

@@ -1,6 +1,5 @@
 package Server.Handlers;
 
-import Server.DataAccessing.DataAccessException;
 import Server.Requests.RegisterRequest;
 import Server.Services.RegisterService;
 import Server.Results.UserAccessResult;
@@ -27,21 +26,25 @@ public class RegisterHandler implements Route {
                     + "\", \"authToken\":\"" + result.getAuthToken() + "\" }";
 
             res.status(HttpURLConnection.HTTP_OK);
+            System.out.println("   >> In handler: OK 200");
             return respData;
         }
         //invalid request
         else if(result.getMessage().equals("bad request")) {
             res.status(HttpURLConnection.HTTP_BAD_REQUEST);
+            System.out.println("   >> In handler: Bad Request 400");
             return "{ \"message\": \"Error: " + result.getMessage() + "\" }";
         }
         //username already taken
         else if(result.getMessage().equals("already taken")) {
             res.status(HttpURLConnection.HTTP_FORBIDDEN);
+            System.out.println("   >> In handler: Forbidden 403");
             return "{ \"message\": \"Error: " + result.getMessage() + "\" }";
         }
         //something weird happens
         else {
             res.status(HttpURLConnection.HTTP_INTERNAL_ERROR);
+            System.out.println("   >> In handler: Internal 500");
             return "{ \"message\": \"Error: internal error }";
         }
     }

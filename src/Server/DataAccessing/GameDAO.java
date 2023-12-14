@@ -1,15 +1,10 @@
 package Server.DataAccessing;
 
-import Server.DataAccessing.BaseDAO;
-import Server.DataAccessing.DataAccess;
-import Server.DataAccessing.DataAccessException;
-import Server.DataAccessing.GameData;
-
 import java.util.Collection;
 
 public class GameDAO extends BaseDAO {
 
-    private DataAccess myDatabase;
+    private static DataAccess myDatabase;
 
     private static int gameNumInc = 0;
 
@@ -84,11 +79,11 @@ public class GameDAO extends BaseDAO {
         switch (roleDefine) {
             case "WHITE":
                 if(gameChanging.getWhiteUserName() == null) gameChanging.setWhiteUserName(username);
-                System.out.println("white changed to " + username);
+                //System.out.println("white changed to " + username);
                 break;
             case "BLACK":
                 if(gameChanging.getBlackUserName() == null) gameChanging.setBlackUserName(username);
-                System.out.println("black changed to " + username);
+                //System.out.println("black changed to " + username);
                 break;
             case "OBSERVER":
                 gameChanging.addObserver(username);
@@ -97,10 +92,10 @@ public class GameDAO extends BaseDAO {
                 throw (new DataAccessException("Unrecognized role"));
         }
 
-        System.out.println("updatedGame: w=" + gameChanging.getWhiteUserName()+ ", b="+ gameChanging.getBlackUserName() + ", id=" + gameChanging.getGameID());
+        //System.out.println("updatedGame: w=" + gameChanging.getWhiteUserName()+ ", b="+ gameChanging.getBlackUserName() + ", id=" + gameChanging.getGameID());
         myDatabase.updateGame(gameChanging);
         GameData checkTwice = myDatabase.readGame(gameChanging);
-        System.out.println("2x check: w=" + checkTwice.getWhiteUserName()+ ", b="+ checkTwice.getBlackUserName() + ", id=" + checkTwice.getGameID());
+        //System.out.println("2x check: w=" + checkTwice.getWhiteUserName()+ ", b="+ checkTwice.getBlackUserName() + ", id=" + checkTwice.getGameID());
 
     }
 
@@ -129,6 +124,7 @@ public class GameDAO extends BaseDAO {
 
     public static int createGameID() {
         gameNumInc++;
+        while(myDatabase.readGame(gameNumInc) != null) gameNumInc++;
         return gameNumInc;
     }
 

@@ -1,4 +1,4 @@
-import Server.Server;
+
 
 public class ClientMain {
 
@@ -7,7 +7,6 @@ public class ClientMain {
         if (args.length == 1) {
             serverUrl = args[0];
         }
-        Server.main(new String[0]);
 
         new REPL(serverUrl).run();
     }

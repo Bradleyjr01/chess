@@ -2,7 +2,6 @@ package Server.Services;
 
 import Server.DataAccessing.*;
 import Server.Requests.RegisterRequest;
-import Server.Requests.RegisterRequest;
 import Server.Results.UserAccessResult;
 import Server.Server;
 

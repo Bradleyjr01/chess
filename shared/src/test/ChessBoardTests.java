@@ -2,8 +2,6 @@ import StartCode.ChessBoard;
 import StartCode.ChessGame;
 import StartCode.ChessPiece;
 import StartCode.ChessPosition;
-import StartCode.*;
-import Resources.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

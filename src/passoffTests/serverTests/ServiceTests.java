@@ -1,11 +1,9 @@
 package passoffTests.serverTests;
-
 import Server.DataAccessing.*;
-import Server.Requests.*;
-import Server.Results.*;
-//import ChessProject.shared.main.Resources.Game;
-import org.junit.jupiter.api.*;
 import Server.Services.*;
+import Server.Results.*;
+import Server.Requests.*;
+import org.junit.jupiter.api.*;
 import Server.Server;
 
 public class ServiceTests {
@@ -141,11 +139,11 @@ public class ServiceTests {
         AuthTokenOnlyRequest goodRequest = new AuthTokenOnlyRequest();
         goodRequest.setAuthorization(token.getAuthToken());
 
-        ListGamesResult listResult = new ListGamesResult();
+        ListGamesResult[] listResult = new ListGamesResult[10];
 
         listResult = myList.listGames(goodRequest);
-        Assertions.assertNull(listResult.getMessage(),"An error occured");
-        Assertions.assertNotNull(listResult.getGames(), "returned no games");
+        Assertions.assertNull(listResult[0].getMessage(),"An error occured");
+        Assertions.assertNotNull(listResult[0].getGames(), "returned no games");
     }
 
     @Test
@@ -153,12 +151,12 @@ public class ServiceTests {
         AuthToken token = new AuthToken(myToken.getAuthToken(), myUser.getUsername());
         ListGamesService myList = new ListGamesService();
 
-        ListGamesResult listResult = new ListGamesResult();
+        ListGamesResult[] listResult = new ListGamesResult[10];
 
         //bad requests
         AuthTokenOnlyRequest badRequest = new AuthTokenOnlyRequest();
         listResult = myList.listGames(badRequest);
-        Assertions.assertNotNull(listResult.getMessage(), "No error returned with no token");
+        Assertions.assertNotNull(listResult[0].getMessage(), "No error returned with no token");
     }
 
     @Test

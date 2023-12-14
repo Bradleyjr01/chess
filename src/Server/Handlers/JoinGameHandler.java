@@ -1,7 +1,5 @@
 package Server.Handlers;
 
-import Server.DataAccessing.DataAccessException;
-import Server.Requests.CreateGameRequest;
 import Server.Requests.JoinGameRequest;
 import Server.Results.JoinGameResult;
 import Server.Services.JoinGameService;

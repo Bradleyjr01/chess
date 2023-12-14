@@ -1,6 +1,5 @@
 package Server;
 import Server.DataAccessing.DataAccess;
-import Server.DataAccessing.MemoryDataAccess;
 import Server.DataAccessing.SQLDataAccess;
 import Server.Handlers.*;
 import spark.*;

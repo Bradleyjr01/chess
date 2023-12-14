@@ -1,6 +1,5 @@
 package Server.Handlers;
 
-import Server.DataAccessing.DataAccessException;
 import Server.Services.LoginService;
 import Server.Requests.LoginRequest;
 import Server.Results.UserAccessResult;
@@ -9,7 +8,7 @@ import spark.*;
 
 import java.net.HttpURLConnection;
 
-public class LoginHandler implements Route{
+public class LoginHandler implements Route {
 
     public Object handle(spark.Request req, spark.Response res) {
 

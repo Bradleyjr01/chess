@@ -1,7 +1,5 @@
 package Server.Results;
 
-import Server.Handlers.CreateGameHandler;
-
 public class CreateGameResult {
     private int gameID;
     private String message;

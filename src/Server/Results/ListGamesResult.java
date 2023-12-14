@@ -1,8 +1,6 @@
 package Server.Results;
 
-import Server.DataAccessing.GameData;
 import com.google.gson.Gson;
-import java.nio.charset.StandardCharsets;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -86,15 +84,7 @@ public class ListGamesResult {
         this.gameName = gameName;
     }
 
-    //public Collection<ListGamesResult> getAllGamesResult() {
-    //    return allGamesResult;
-    //}
-
-    //public void setAllGamesResult(Collection<ListGamesResult> allGamesResult) {
-    //    this.allGamesResult = allGamesResult;
-    //}
-
-    private String myToJson(ArrayList<ListGamesResult> list) {
+    public static String myToJson(ArrayList<ListGamesResult> list) {
         StringBuilder string = new StringBuilder();
         string.append("[");
         for(ListGamesResult l : list) {

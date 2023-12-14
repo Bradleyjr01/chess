@@ -1,6 +1,6 @@
 package Server.Requests;
 
-public class CreateGameRequest {
+public class CreateGameRequest extends HTTPRequest {
     private String authorization;
     private String gameName;
     public CreateGameRequest() { }

@@ -1,7 +1,7 @@
 package Server.Requests;
 
 
-public class JoinGameRequest {
+public class JoinGameRequest extends HTTPRequest {
     private int gameID;
     private String playerColor;
     private String authorization;

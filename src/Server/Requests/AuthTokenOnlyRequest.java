@@ -1,6 +1,6 @@
 package Server.Requests;
 
-public class AuthTokenOnlyRequest {
+public class AuthTokenOnlyRequest extends HTTPRequest {
     private String authorization;
 
     public AuthTokenOnlyRequest() {}

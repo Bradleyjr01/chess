@@ -1,6 +1,6 @@
 package Server.Requests;
 
-public class RegisterRequest {
+public class RegisterRequest extends HTTPRequest{
     private String username;
     private String password;
     private String email;

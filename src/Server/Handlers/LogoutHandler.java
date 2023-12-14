@@ -1,18 +1,10 @@
 package Server.Handlers;
 
-import Server.DataAccessing.DataAccessException;
-import Server.Requests.AuthTokenOnlyRequest;
 import Server.Results.MessageResult;
-import Server.Results.UserAccessResult;
 import Server.Services.LogoutService;
 import com.google.gson.Gson;
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import spark.Route;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 
 public class LogoutHandler implements Route {

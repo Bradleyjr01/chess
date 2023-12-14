@@ -1,3 +1,10 @@
+import Server.DataAccessing.GameData;
+import Server.Results.CreateGameResult;
+import Server.Results.JoinGameResult;
+import Server.Results.ListGamesResult;
+import Server.Results.UserAccessResult;
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
@@ -5,6 +12,7 @@ import java.util.Locale;
 public class ChessClient {
 
     private String currentUser = null;
+    String myToken = null;
     private final ServerFacade server;
     private final String serverUrl;
     private State state = State.LOGGEDOUT;
@@ -38,9 +46,11 @@ public class ChessClient {
     public String register(String[] inputReq) {
         if(inputReq.length == 3) {
             try {
-                String regRes = server.facadeRegister(inputReq);
+                UserAccessResult res = server.facadeRegister(inputReq);
+                String userName = res.getUsername();
+                myToken = res.getAuthToken();
                 state = State.LOGGEDIN;
-                return "Logged in as " + regRes;
+                return "Logged in as " + userName;
             }
             catch(Exception e) {
                 return e.getMessage();
@@ -52,10 +62,11 @@ public class ChessClient {
     public String logIn(String[] inputReq) {
         if (inputReq.length == 2) {
             try {
-                String myUser = server.facadeLogin(inputReq);
+                UserAccessResult res = server.facadeLogin(inputReq);
+                String userName = res.getUsername();
+                myToken = res.getAuthToken();
                 state = State.LOGGEDIN;
-                currentUser = inputReq[0];
-                return "Logged in as " + currentUser;
+                return "Logged in as " + userName;
             }
             catch (Exception e) {
                 return e.getMessage();
@@ -64,7 +75,7 @@ public class ChessClient {
         return "Invalid input. \n Format: \"login <USERNAME> <PASSWORD>\"";
     }
 
-    public String createGame(String inputReq) throws Exception {
+    public String createGame(String inputReq) {
         try {
             assertLoggedIn();
         }
@@ -73,8 +84,8 @@ public class ChessClient {
         }
         if (!inputReq.isEmpty()) {
             try {
-                String gameID = server.facadeCreateGame(inputReq);
-                return "Resources.Game " + inputReq + " created. \n Assigned ID: " + gameID;
+                int id = server.facadeCreateGame(inputReq, myToken).getGameID();
+                return "Game " + inputReq + " created. \n Assigned ID: " + id;
             } catch (Exception e) {
                 return e.getMessage();
             }
@@ -82,7 +93,38 @@ public class ChessClient {
         return "Invalid input. \n Format: \"create <NAME>\"";
     }
 
-    public String listGames() throws Exception {
+    public String listGames() {
+        try {
+            assertLoggedIn();
+        }
+        catch (Exception ex) {
+            //System.out.println("catch on assertLoggedIn");
+            return ex.getMessage();
+        }
+        try {
+            Gson gson = new Gson();
+            ListGamesResult[] allGames = server.facadeListGames(myToken);
+            System.out.println("allGames length = " + allGames.length);
+            for(int l = 0; l < allGames.length - 1; l++) {
+                System.out.println(allGames[l].toString());
+            }
+            StringBuilder showGames = new StringBuilder();
+            for(int i = 0; i < allGames.length - 1; i++) {
+                showGames.append("(" + allGames[i].getGameID() + ") " + allGames[i].getGameName() + "\n");
+                showGames.append("White Player: " + allGames[i].getWhiteUsername() + "\n");
+                showGames.append("Black Player: " + allGames[i].getBlackUsername() + "\n\n");
+            }
+            System.out.println("cp 4");
+            return showGames.toString();
+        }
+        catch (Exception e) {
+            //System.out.println("catch on json");
+            return e.getMessage();
+        }
+
+    }
+
+    public String logout() {
         try {
             assertLoggedIn();
         }
@@ -90,7 +132,10 @@ public class ChessClient {
             return ex.getMessage();
         }
         try {
-            return server.facadeListGames().replace(" ", "\n");
+            server.facadeLogout(myToken);
+            currentUser = null;
+            state = State.LOGGEDOUT;
+            return "Logged out";
         }
         catch (Exception e) {
             return e.getMessage();
@@ -98,21 +143,7 @@ public class ChessClient {
 
     }
 
-    public String logout() throws Exception {
-        try {
-            assertLoggedIn();
-        }
-        catch (Exception ex) {
-            return ex.getMessage();
-        }
-        server.facadeLogout();
-        currentUser = null;
-        state = State.LOGGEDOUT;
-        return "Logged out";
-
-    }
-
-    public String joinGame(String[] inputReq) throws Exception {
+    public String joinGame(String[] inputReq) {
         try {
             assertLoggedIn();
         }
@@ -121,11 +152,12 @@ public class ChessClient {
         }
         if (inputReq.length >= 1) {
             try {
-                String joinName = server.facadeJoinGame(inputReq);
-                String joinMessage = "Joined game \'" + joinName + "\' as ";
-                if(inputReq.length > 1) joinMessage += inputReq[1];
-                else joinMessage += "observer";
-                return joinMessage;
+                JoinGameResult res = server.facadeJoinGame(inputReq, myToken);
+                int joinId = res.getGameID();
+                String joinColor;
+                if(inputReq.length > 1) joinColor = inputReq[1];
+                else joinColor = "OBSERVER";
+                return "Joined game with ID \'" + joinId + "\' as " + joinColor.toUpperCase();
             }
             catch (Exception e) {
                 return e.getMessage();
@@ -143,7 +175,8 @@ public class ChessClient {
         }
         if(!inputReq.isEmpty()) {
             try {
-                String joinName = server.facadeObserve(inputReq);
+                JoinGameResult res = server.facadeObserve(inputReq, myToken);
+                int joinName = res.getGameID();
                 return "Joined game \'" + joinName + "\' as observer";
             } catch (Exception e) {
                 return e.getMessage();

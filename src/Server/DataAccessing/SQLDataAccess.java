@@ -3,12 +3,8 @@ package Server.DataAccessing;
 import Database.Database;
 import com.google.gson.Gson;
 
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
-
-import static Database.Database.*;
 
 public class SQLDataAccess implements DataAccess {
 
@@ -299,7 +295,7 @@ public class SQLDataAccess implements DataAccess {
                 else preparedStatement.setNull(4, 0);
                 myGame.getGame().getBoard().resetBoard();
                 preparedStatement.setString(5, myGame.getGameString());
-                System.out.println("getGameString: " + myGame.getGameString());
+                //System.out.println("getGameString: " + myGame.getGameString());
 
                 preparedStatement.executeUpdate();
             }
@@ -343,11 +339,11 @@ public class SQLDataAccess implements DataAccess {
 
                     preparedStatement.executeUpdate();
 
-                    System.out.println("update white: " + myGame.getWhiteUserName());
+                    //System.out.println("update white: " + myGame.getWhiteUserName());
                 }
             }
             else {
-                System.out.println("white is null");
+                //System.out.println("white is null");
             }
             if(myGame.getBlackUserName() != null) {
                 try (var preparedStatement = conn.prepareStatement("UPDATE games SET blackUserName=? WHERE gameID=?")) {
@@ -359,7 +355,7 @@ public class SQLDataAccess implements DataAccess {
                 }
             }
             else {
-                System.out.println("black is null");
+                //System.out.println("black is null");
             }
             return updateMe;
         }
@@ -405,13 +401,13 @@ public class SQLDataAccess implements DataAccess {
                         String white;
                         if(rs.getString("whiteUserName") != null) {
                             white = rs.getString("whiteUserName");
-                            System.out.println("white:" + white);
+                            //System.out.println("white:" + white);
                         }
                         else white = myGame.getWhiteUserName();
                         String black;
                         if(rs.getString("blackUserName") != null) {
                             black = rs.getString("blackUserName");
-                            System.out.println("black:" + black);
+                            //System.out.println("black:" + black);
                         }
                         else black = myGame.getBlackUserName();
                         var game = rs.getString("game");
@@ -426,7 +422,7 @@ public class SQLDataAccess implements DataAccess {
                         json.append("\"game\": " + game + " }");
 
                         GameData returnGame = gson.fromJson(json.toString(), GameData.class);
-                        System.out.println("return game GameData: w=" + returnGame.getWhiteUserName() + ", b=" + returnGame.getBlackUserName());
+                        //System.out.println("return game GameData: w=" + returnGame.getWhiteUserName() + ", b=" + returnGame.getBlackUserName());
                         return returnGame;
                     }
                 }
@@ -457,13 +453,13 @@ public class SQLDataAccess implements DataAccess {
                         String white;
                         if(rs.getString("whiteUserName") != null) {
                         white = rs.getString("whiteUserName");
-                        System.out.println("white:" + white);
+                        //System.out.println("white:" + white);
                         }
                         else white = null;
                         String black;
                         if(rs.getString("blackUserName") != null) {
                             black = rs.getString("blackUserName");
-                            System.out.println("black:" + black);
+                            //System.out.println("black:" + black);
                         }
                         else black = null;
                         var game = rs.getString("game");
@@ -478,7 +474,7 @@ public class SQLDataAccess implements DataAccess {
                         json.append("\"game\": " + game + " }");
 
                         GameData returnGame = gson.fromJson(json.toString(), GameData.class);
-                        System.out.println("return game GameID: w=" + returnGame.getWhiteUserName() + ", b=" + returnGame.getBlackUserName());
+                        //System.out.println("return game GameID: w=" + returnGame.getWhiteUserName() + ", b=" + returnGame.getBlackUserName());
                         return returnGame;
                     }
                 }
@@ -619,7 +615,7 @@ public class SQLDataAccess implements DataAccess {
         try(var conn = DATABASE.getConnection()) {
             conn.setCatalog("chess");
 
-            var games = new ArrayList<GameData>();
+            var allGames = new ArrayList<GameData>();
             try (var preparedStatement = conn.prepareStatement("SELECT * FROM games")) {
                 try (var rs = preparedStatement.executeQuery()) {
                     while (rs.next()) {
@@ -628,13 +624,13 @@ public class SQLDataAccess implements DataAccess {
                         String white;
                         if(rs.getString("whiteUserName") != null) {
                             white = rs.getString("whiteUserName");
-                            System.out.println("white:" + white);
+                            //System.out.println("white:" + white);
                         }
                         else white = null;
                         String black;
                         if(rs.getString("blackUserName") != null) {
                             black = rs.getString("blackUserName");
-                            System.out.println("black:" + black);
+                            //System.out.println("black:" + black);
                         }
                         else black = null;
                         var game = rs.getString("game");
@@ -649,11 +645,11 @@ public class SQLDataAccess implements DataAccess {
                         json.append("\"game\": " + game + " }");
                         System.out.println("gameData: " + json);
                         GameData returnGame = gson.fromJson(json.toString(), GameData.class);
-                        games.add(returnGame);
+                        allGames.add(returnGame);
                     }
                 }
             }
-            return games;
+            return allGames;
         }
         catch(DataAccessException d) {
             System.out.println("Error: Data exception");

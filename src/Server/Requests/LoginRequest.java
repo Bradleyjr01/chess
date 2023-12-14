@@ -1,6 +1,6 @@
 package Server.Requests;
 
-public class LoginRequest {
+public class LoginRequest extends HTTPRequest{
     private String username;
     private String password;
 

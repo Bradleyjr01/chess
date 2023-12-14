@@ -1,6 +1,5 @@
 package Server.Handlers;
 
-import Server.DataAccessing.DataAccessException;
 import Server.Services.CreateGameService;
 import Server.Requests.CreateGameRequest;
 import Server.Results.CreateGameResult;
