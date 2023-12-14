@@ -29,15 +29,9 @@ public class JoinGameService {
             return new JoinGameResult("unauthorized");
         }
 
-        //verify request
-        //if(request.getPlayerColor() == null) {
-        //    System.out.println("Team is null -");
-        //    return new JoinGameResult("bad request");
-        //}
-
         //verify game
         GameDAO gameAccess = new GameDAO(Server.MEMORY_DATA_ACCESS);
-        GameData myGame = new GameData();
+        GameData myGame;
         try{
             //System.out.println("invalid game");
             myGame = gameAccess.findGame(request.getGameID());
@@ -50,7 +44,6 @@ public class JoinGameService {
         String requestedColor;
         if(request.getPlayerColor() != null) {
             requestedColor = request.getPlayerColor();
-            System.out.println("Requested Color = " + requestedColor);
         }
         else {
             requestedColor = "OBSERVER";
@@ -79,9 +72,8 @@ public class JoinGameService {
         catch(DataAccessException e) {
             return new JoinGameResult("can't find something");
         }
-        //System.out.println("sending result");
-        System.out.println("endpoint Requested Color = " + requestedColor);
-        return new JoinGameResult(requestedColor, myGame.getGameID());
+        System.out.println("myGame in service "  + myGame.getGame().getBoard().toString());
+        return new JoinGameResult(requestedColor, myGame.getGameID(), myGame);
     }
 
 }

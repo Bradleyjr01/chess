@@ -1,14 +1,18 @@
+import Resources.Game;
+import WebSocket.MessageHandler;
 import ui.EscapeSequences;
+import webSocketMessages.serverMessages.Notification;
+import webSocketMessages.serverMessages.ServerMessage;
 
 import java.util.Scanner;
 
 import static ui.EscapeSequences.*;
 
-public class REPL {
+public class REPL implements MessageHandler {
     public ChessClient client;
 
     public REPL(String serverUrl) {
-        client = new ChessClient(serverUrl);
+        client = new ChessClient(serverUrl, this);
     }
 
     public void run() {
@@ -33,13 +37,29 @@ public class REPL {
         System.out.println();
     }
 
-    /*public void notify(Notification notification) {
-        System.out.println(RED + notification.message());
-        printPrompt();
-    }*/
-
     private void printPrompt() {
         System.out.print("\n" + client.getState() + " >>> ");
     }
 
+    @Override
+    public void notify(ServerMessage notification) {
+        ServerMessage.ServerMessageType type = notification.getServerMessageType();
+
+        printPrompt();
+    }
+
+    @Override
+    public void updateBoard(Game load) {
+        ChessClient.displayBoard(load, "WHITE");
+    }
+
+    @Override
+    public void message(String notification) {
+        System.out.println(notification);
+    }
+
+    @Override
+    public void error(String err) {
+        System.out.println(err);
+    }
 }

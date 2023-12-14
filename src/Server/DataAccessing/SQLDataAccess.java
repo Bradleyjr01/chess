@@ -24,8 +24,9 @@ public class SQLDataAccess implements DataAccess {
                     "    gameID INT," +
                     "    gameName VARCHAR(255) NOT NULL," +
                     "    whiteUserName VARCHAR(255)," +
-                    "    blackUserName VARCHAR(255) NOT NULL," +
-                    "    game TEXT NOT NULL)")) {
+                    "    blackUserName VARCHAR(255)," +
+                    "    game TEXT NOT NULL," +
+                    "    gameEnded boolean)")) {
                 preparedStatement.executeUpdate();
             }
 
@@ -320,7 +321,7 @@ public class SQLDataAccess implements DataAccess {
     @Override
     public GameData updateGame(GameData myGame) {
         if(myGame == null) return null;
-        System.out.println("id=" + myGame.getGameID());
+        //System.out.println("id=" + myGame.getGameID());
         try(var conn = DATABASE.getConnection()) {
             conn.setCatalog("chess");
 
@@ -342,21 +343,33 @@ public class SQLDataAccess implements DataAccess {
                     //System.out.println("update white: " + myGame.getWhiteUserName());
                 }
             }
-            else {
-                //System.out.println("white is null");
-            }
             if(myGame.getBlackUserName() != null) {
                 try (var preparedStatement = conn.prepareStatement("UPDATE games SET blackUserName=? WHERE gameID=?")) {
                     preparedStatement.setString(1, myGame.getBlackUserName());
                     preparedStatement.setInt(2, myGame.getGameID());
 
                     preparedStatement.executeUpdate();
-                    System.out.println("update black: " + myGame.getBlackUserName());
+                    //System.out.println("update black: " + myGame.getBlackUserName());
                 }
             }
-            else {
-                //System.out.println("black is null");
+            try(var preparedStatement = conn.prepareStatement("UPDATE games SET gameEnded=? WHERE gameID=?")) {
+                preparedStatement.setBoolean(1, myGame.isGameEnded());
+                preparedStatement.setInt(2, myGame.getGameID());
+
+                preparedStatement.executeUpdate();
+                //System.out.println("update game board: " + myGame.getBlackUserName());
+
             }
+
+            try(var preparedStatement = conn.prepareStatement("UPDATE games SET game=? WHERE gameID=?")) {
+                preparedStatement.setString(1, myGame.getGameString());
+                preparedStatement.setInt(2, myGame.getGameID());
+
+                preparedStatement.executeUpdate();
+                //System.out.println("update game status: " + myGame.getBlackUserName());
+
+            }
+
             return updateMe;
         }
         catch(DataAccessException d) {
@@ -643,7 +656,7 @@ public class SQLDataAccess implements DataAccess {
                         if(black != null) json.append("\"blackUserName\":\"" + black + "\", ");
                         else json.append("\"blackUserName\":null, ");
                         json.append("\"game\": " + game + " }");
-                        System.out.println("gameData: " + json);
+                        //System.out.println("gameData: " + json);
                         GameData returnGame = gson.fromJson(json.toString(), GameData.class);
                         allGames.add(returnGame);
                     }

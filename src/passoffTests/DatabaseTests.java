@@ -1,4 +1,4 @@
-package passoffTests.serverTests;
+package passoffTests;
 
 import Server.DataAccessing.*;
 import Server.Server;

@@ -1,11 +1,14 @@
 package Server.Results;
 
 
+import Server.DataAccessing.GameData;
+
 public class JoinGameResult {
 
     String message;
     int gameID;
     String role;
+    GameData joined;
 
     public JoinGameResult() {}
 
@@ -15,10 +18,11 @@ public class JoinGameResult {
         gameID = -1;
     }
 
-    public JoinGameResult(String r, int id) {
+    public JoinGameResult(String r, int id, GameData game) {
         message = null;
         role = r;
         gameID = id;
+        joined = game;
     }
 
     public String getMessage() {
@@ -44,4 +48,13 @@ public class JoinGameResult {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public GameData getJoined() {
+        return joined;
+    }
+
+    public void setJoined(GameData joined) {
+        this.joined = joined;
+    }
+
 }

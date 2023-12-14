@@ -33,7 +33,7 @@ public class ListGamesHandler implements Route {
                 library.append(gson.toJson(result[i]) + ",");
             }
             library.append("]");
-            System.out.print(library.toString());
+            //System.out.print(library.toString());
             return library.toString();
         }
         else if(result[0].getMessage().equals("unauthorized")) {

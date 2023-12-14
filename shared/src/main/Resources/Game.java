@@ -52,7 +52,7 @@ public class Game implements ChessGame {
 
     @Override
     public void makeMove(ChessMove move) throws InvalidMoveException {
-        System.out.println(myBoard);
+        //System.out.println(myBoard);
         if(move.getEndPosition().getColumn() < 0 || move.getEndPosition().getRow() < 0
             || move.getEndPosition().getColumn() > 7 || move.getEndPosition().getRow() > 7
             || move.getStartPosition().getColumn() < 0 || move.getStartPosition().getRow() < 0
@@ -63,7 +63,7 @@ public class Game implements ChessGame {
         Collection<ChessMove> pieceMoves = validMoves(move.getStartPosition());
         boolean valid = false;
 
-        System.out.println("Moves for " + myBoard.getPiece(move.getStartPosition()).toString());
+        //System.out.println("Moves for " + myBoard.getPiece(move.getStartPosition()).toString());
         for(ChessMove m : pieceMoves) {
             System.out.println(m.toString());
         }
@@ -73,7 +73,7 @@ public class Game implements ChessGame {
                     && m.getEndPosition().getColumn() == move.getEndPosition().getColumn()) {
                 ChessBoard lastBoard = new Board(myBoard);
                 valid = true;
-                System.out.println("valid: " + m.toString());
+                //System.out.println("valid: " + m.toString());
                 myBoard = move.makeAMove(myBoard);
                 if(isInCheck(getTeamTurn())) {
                     myBoard = new Board(lastBoard);

@@ -26,7 +26,8 @@ public class JoinGameHandler implements Route {
         //user added as preferred role
         if(result.getMessage() == null) {
             String respData = "{ \"playerColor\":\"" + result.getRole()
-                    + "\", \"gameID\":\"" + result.getGameID() + "\" }";
+                    + "\", \"gameID\":\"" + result.getGameID() + "\",  "
+                    + "\"joined\":" + gson.toJson(result.getJoined()) + "}";
 
             res.status(HttpURLConnection.HTTP_OK);
             return respData;

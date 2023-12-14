@@ -1,3 +1,5 @@
+import Resources.Game;
+import Server.DataAccessing.GameData;
 import Server.Requests.*;
 import Server.Results.*;
 import com.google.gson.Gson;
@@ -10,7 +12,6 @@ import java.util.Collection;
 
 public class ServerFacade {
     private final String serverUrl;
-
     public ServerFacade(String url) {
         serverUrl = url;
     }

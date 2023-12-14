@@ -14,6 +14,7 @@ public class GameData {
     private String blackUserName = null;
     private String gameName = null;
     private ArrayList<String> observers = new ArrayList<>();
+    boolean gameEnded;
 
     public GameData(){}
 
@@ -26,6 +27,7 @@ public class GameData {
         else blackUserName = g.getBlackUserName();
         gameName = g.getGameName();
         observers = g.getObservers();
+        gameEnded = g.gameEnded;
     }
 
     public GameData(String myName) {
@@ -35,6 +37,7 @@ public class GameData {
         blackUserName = null;
         game = new Game();
         game.getBoard().resetBoard();
+        gameEnded = false;
     }
 
     public Game getGame() {
@@ -107,4 +110,13 @@ public class GameData {
     public int hashCode() {
         return Objects.hash(game, gameID, whiteUserName, blackUserName, gameName);
     }
+
+    public boolean isGameEnded() {
+        return gameEnded;
+    }
+
+    public void setGameEnded(boolean gameEnded) {
+        this.gameEnded = gameEnded;
+    }
+
 }
